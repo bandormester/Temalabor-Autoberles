@@ -1,4 +1,4 @@
-package hu.bme.aut.adminclient;
+package hu.bme.aut.adminclient.retrofit;
 
 import java.util.List;
 

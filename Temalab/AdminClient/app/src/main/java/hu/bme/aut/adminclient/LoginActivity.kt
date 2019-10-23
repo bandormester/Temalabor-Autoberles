@@ -5,8 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
-import android.widget.Toast
 import com.google.gson.GsonBuilder
+import hu.bme.aut.adminclient.retrofit.RetroLogin
+import hu.bme.aut.adminclient.retrofit.RetrofitLogin
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -30,7 +31,7 @@ class LoginActivity : AppCompatActivity(){
 
         btLogin.setOnClickListener{
 
-            val retroLogin = retrofit.create(RetrofitLogin::class.java)
+            val retroLogin = retrofit.create(RetroLogin::class.java)
 
             val username = etUsername.text.toString()
             val password = etPassword.text.toString()
