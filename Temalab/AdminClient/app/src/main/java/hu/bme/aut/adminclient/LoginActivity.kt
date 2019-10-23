@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Base64
 import android.util.Log
 import android.widget.Toast
+import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -15,12 +16,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 class LoginActivity : AppCompatActivity(){
+    var gson = GsonBuilder().setLenient().create()
 
-    val builder : Retrofit.Builder = Retrofit.Builder()
+    var builder : Retrofit.Builder = Retrofit.Builder()
         .baseUrl("https://penzfeldobas.herokuapp.com/")
-        .addConverterFactory(GsonConverterFactory.create())
+        .addConverterFactory(GsonConverterFactory.create(gson))
 
-    val retrofit : Retrofit = builder.build()
+    var retrofit : Retrofit = builder.build()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,28 +32,41 @@ class LoginActivity : AppCompatActivity(){
 
             val retroLogin = retrofit.create(RetrofitLogin::class.java)
 
-            val loginDetails = "admin:admin"
+            val username = etUsername.text.toString()
+            val password = etPassword.text.toString()
+            val loginDetails = "$username:$password"
+
             val authHeader = "Basic " + Base64.encodeToString(loginDetails.toByteArray(),Base64.NO_WRAP)
 
             val call= retroLogin.tryLogin(authHeader)
 
             call.enqueue(object : Callback<String>{
                 override fun onResponse(call: Call<String>?, response: Response<String>?){
-                    println("segg")
+                    Log.d("retrofit","call succeeded")
+                    Log.d("retrofit", response?.body()?:"Szar ugy")
+
+                    when(response?.code()){
+                        200 -> {
+                            Log.d("retrofit","Sikeres bejelentkezes")
+                            Log.d("retrofit",response.toString())
+
+                            val myIntent : Intent = Intent()
+                            myIntent.setClass(this@LoginActivity, AfterLoginActivity::class.java)
+                            startActivity(myIntent)
+                        }
+                        else -> {
+                            Log.d("retrofit","Sikertelen bejelentkezés")
+                            Log.d("retrofit",response.toString())
+                        }
+                    }
                 }
 
-                override fun onFailure(call: Call<String>, t: Throwable) {
-                    Log.v("retrofit", "call failed")
+                override fun onFailure(call: Call<String>?, t: Throwable) {
+                    Log.d("retrofit", "call failed")
+                    Log.d("retrofit",t.message)
                 }
             })
 
-            println("asd")
-            //println(asd)
-
-
-            val myIntent : Intent = Intent()
-            myIntent.setClass(this@LoginActivity, AfterLoginActivity::class.java)
-            startActivity(myIntent)
         }
     }
 }
