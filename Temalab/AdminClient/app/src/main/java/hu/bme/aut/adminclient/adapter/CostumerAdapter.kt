@@ -53,13 +53,13 @@ class CostumerAdapter : RecyclerView.Adapter<CostumerAdapter.CostumerHolder>() {
 
         holder.tvFirstName.text = costumer.firstName
         holder.tvLastName.text = costumer.lastName
-        Log.d("recview",costumer.firstName)
-        Log.d("recview",costumer.lastName)
+        Log.d("recview",holder.tvFirstName.text.toString())
+        Log.d("recview",holder.tvLastName.text.toString())
     }
 
     inner class CostumerHolder(costumerView : View) : RecyclerView.ViewHolder(costumerView) {
         val tvFirstName: TextView = costumerView.tvFirstName
-        val tvLastName: TextView = costumerView.tvFirstName
+        val tvLastName: TextView = costumerView.tvLastName
 
         var costumer : Costumer? = null
     }

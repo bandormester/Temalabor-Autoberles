@@ -76,7 +76,6 @@ class ListUsersActivity : AppCompatActivity() {
         costumerAdapter.addItem(UserList[1])
         costumerAdapter.addItem(UserList[2])
         costumerAdapter.addAll(UserList)
-        RecyclerViewUsers.layoutManager=LinearLayoutManager(this)
         RecyclerViewUsers.adapter = costumerAdapter
     }
 }
