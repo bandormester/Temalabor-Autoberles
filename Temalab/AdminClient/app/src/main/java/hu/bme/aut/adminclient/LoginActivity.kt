@@ -7,7 +7,6 @@ import android.util.Base64
 import android.util.Log
 import com.google.gson.GsonBuilder
 import hu.bme.aut.adminclient.retrofit.RetroLogin
-import hu.bme.aut.adminclient.retrofit.RetrofitLogin
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -52,7 +51,7 @@ class LoginActivity : AppCompatActivity(){
                             Log.d("retrofit",response.toString())
 
                             val myIntent : Intent = Intent()
-                            myIntent.setClass(this@LoginActivity, AfterLoginActivity::class.java)
+                            myIntent.setClass(this@LoginActivity, ListUsersActivity::class.java)
                             startActivity(myIntent)
                         }
                         else -> {
