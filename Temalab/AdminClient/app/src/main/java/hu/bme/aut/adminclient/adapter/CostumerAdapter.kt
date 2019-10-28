@@ -27,6 +27,7 @@ class CostumerAdapter : RecyclerView.Adapter<CostumerAdapter.CostumerHolder>() {
     }
 
 
+
      fun addItem(item : Costumer) {
          Log.d("recview","add-item")
          val size = costumerList.size
@@ -62,9 +63,10 @@ class CostumerAdapter : RecyclerView.Adapter<CostumerAdapter.CostumerHolder>() {
         val tvLastName: TextView = costumerView.tvLastName
 
         var costumer : Costumer? = null
+
+        }
     }
 
     interface CostumerItemClickListener {
-
     }
 }

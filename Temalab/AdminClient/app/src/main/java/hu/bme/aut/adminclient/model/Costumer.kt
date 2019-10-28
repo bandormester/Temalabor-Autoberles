@@ -7,9 +7,9 @@ class Costumer {
     var emailAddress : String = ""
     var enabled : Boolean = false
     var phone : String = ""
-    var drivingLicenceFront = null
-    var drivingLicenceBack = null
-    var profileImage = null
+    var drivingLicenceFront : Int = 0
+    var drivingLicenceBack : Int = 0
+    var profileImage : Int = 0
     var licenceCardNumber : String = ""
     var firstName : String = ""
     var expiradionDate : String = ""
