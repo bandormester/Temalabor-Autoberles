@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
+import android.widget.Toast
 import com.google.gson.GsonBuilder
 import hu.bme.aut.adminclient.retrofit.RetroLogin
 import kotlinx.android.synthetic.main.activity_main.*
@@ -43,11 +44,10 @@ class LoginActivity : AppCompatActivity(){
             call.enqueue(object : Callback<String>{
                 override fun onResponse(call: Call<String>?, response: Response<String>?){
                     Log.d("retrofit","call succeeded")
-                    Log.d("retrofit", response?.body()?:"Szar ugy")
 
                     when(response?.code()){
                         200 -> {
-                            Log.d("retrofit","Sikeres bejelentkezes")
+                            Log.d("retrofit","Login Successful")
                             Log.d("retrofit",response.toString())
 
                             val myIntent : Intent = Intent()
@@ -55,7 +55,8 @@ class LoginActivity : AppCompatActivity(){
                             startActivity(myIntent)
                         }
                         else -> {
-                            Log.d("retrofit","Sikertelen bejelentkezés")
+                            Toast.makeText(this@LoginActivity,"Login failed",Toast.LENGTH_LONG)
+                            Log.d("retrofit","Login failed")
                             Log.d("retrofit",response.toString())
                         }
                     }

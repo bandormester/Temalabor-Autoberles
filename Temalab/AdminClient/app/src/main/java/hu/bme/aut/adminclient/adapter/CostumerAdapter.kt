@@ -19,6 +19,7 @@ class CostumerAdapter : RecyclerView.Adapter<CostumerAdapter.CostumerHolder>() {
 
     var itemClickListener : CostumerItemClickListener? = null
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CostumerHolder {
         Log.d("recview","on create view holder")
         val view = LayoutInflater.from(parent.context)
@@ -63,10 +64,15 @@ class CostumerAdapter : RecyclerView.Adapter<CostumerAdapter.CostumerHolder>() {
         val tvLastName: TextView = costumerView.tvLastName
 
         var costumer : Costumer? = null
-
+        init{
+            costumerView.setOnClickListener{
+                Log.d("detview","item clicked")
+                costumer?.let{itemClickListener?.onCostumerSelected(it)}
+            }
         }
     }
 
     interface CostumerItemClickListener {
+        fun onCostumerSelected(costumer: Costumer)
     }
 }

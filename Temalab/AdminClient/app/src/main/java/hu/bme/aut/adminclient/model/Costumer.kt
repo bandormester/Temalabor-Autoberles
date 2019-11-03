@@ -1,8 +1,10 @@
 package hu.bme.aut.adminclient.model
 
+import android.os.Parcel
+import android.os.Parcelable
 import androidx.annotation.IntegerRes
 
-class Costumer {
+class Costumer{
     var userId : Int = 0
     var emailAddress : String = ""
     var enabled : Boolean = false
@@ -14,4 +16,5 @@ class Costumer {
     var firstName : String = ""
     var expiradionDate : String = ""
     var lastName : String = ""
+
 }

@@ -1,5 +1,6 @@
 package hu.bme.aut.adminclient
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
@@ -18,7 +19,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class ListUsersActivity : AppCompatActivity() {
+class ListUsersActivity : AppCompatActivity(), CostumerAdapter.CostumerItemClickListener {
 
     private lateinit var costumerAdapter: CostumerAdapter
 
@@ -57,14 +58,6 @@ class ListUsersActivity : AppCompatActivity() {
                 setupRecyclerView(Users)
 
                 Log.d("retrofit", Users[1].firstName)
-                /*var Usernames = arrayOfNulls<String>(Users!!.size)
-
-                for(i in 0 until Users.size){
-                    Usernames[i] = Users[i].firstName+" "+Users[i].lastName
-                }
-
-                val adapter = ArrayAdapter(applicationContext, android.R.layout.simple_list_item_1, Usernames)
-                lvUsers.adapter = adapter*/
             }
 
         })
@@ -73,9 +66,22 @@ class ListUsersActivity : AppCompatActivity() {
 
     private fun setupRecyclerView(UserList : List<Costumer>) {
         costumerAdapter = CostumerAdapter()
-        costumerAdapter.addItem(UserList[1])
-        costumerAdapter.addItem(UserList[2])
+        costumerAdapter.itemClickListener = this
         costumerAdapter.addAll(UserList)
         RecyclerViewUsers.adapter = costumerAdapter
+    }
+
+    override fun onCostumerSelected(costumer: Costumer) {
+        Log.d("detview","user clicked")
+        val intent = Intent(this, CostumerDetailActivity::class.java)
+        intent.putExtra(CostumerDetailActivity.DETAIL_ID,costumer.userId)
+        intent.putExtra(CostumerDetailActivity.DETAIL_EMAIL,costumer.emailAddress)
+        intent.putExtra(CostumerDetailActivity.DETAIL_PHONE,costumer.phone)
+        intent.putExtra(CostumerDetailActivity.DETAIL_LICENCE,costumer.licenceCardNumber)
+        intent.putExtra(CostumerDetailActivity.DETAIL_FIRST,costumer.firstName)
+        intent.putExtra(CostumerDetailActivity.DETAIL_LAST,costumer.lastName)
+        intent.putExtra(CostumerDetailActivity.DETAIL_EXPIRATION,costumer.expiradionDate)
+        intent.putExtra(CostumerDetailActivity.DETAIL_ENABLED,costumer.enabled)
+        startActivity(intent)
     }
 }
