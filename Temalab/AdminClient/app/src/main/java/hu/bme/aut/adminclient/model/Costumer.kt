@@ -5,7 +5,7 @@ import android.os.Parcelable
 import androidx.annotation.IntegerRes
 
 class Costumer{
-    var userId : Int = 0
+    var customerId : Int = 1
     var emailAddress : String = ""
     var enabled : Boolean = false
     var phone : String = ""
@@ -14,7 +14,7 @@ class Costumer{
     var profileImage : Int = 0
     var licenceCardNumber : String = ""
     var firstName : String = ""
-    var expiradionDate : String = ""
+    var expirationDate : String = ""
     var lastName : String = ""
 
 }
