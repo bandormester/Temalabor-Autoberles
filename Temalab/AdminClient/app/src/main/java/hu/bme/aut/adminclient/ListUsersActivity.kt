@@ -23,6 +23,8 @@ class ListUsersActivity : AppCompatActivity(), CostumerAdapter.CostumerItemClick
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_users)
+        costumerAdapter = CostumerAdapter()
+        RecyclerViewUsers.adapter = costumerAdapter
 
        /* var gson = GsonBuilder().setLenient().create()
 
@@ -67,7 +69,7 @@ class ListUsersActivity : AppCompatActivity(), CostumerAdapter.CostumerItemClick
         var gson = GsonBuilder().setLenient().create()
 
         var builder : Retrofit.Builder = Retrofit.Builder()
-            .baseUrl("https://penzfeldobas.herokuapp.com/")
+            .baseUrl("http://ec2-3-14-28-216.us-east-2.compute.amazonaws.com")
             .addConverterFactory(GsonConverterFactory.create(gson))
 
         var retrofit : Retrofit = builder.build()
@@ -100,7 +102,7 @@ class ListUsersActivity : AppCompatActivity(), CostumerAdapter.CostumerItemClick
     }
 
     private fun setupRecyclerView(UserList : List<Costumer>) {
-        costumerAdapter = CostumerAdapter()
+
         costumerAdapter.itemClickListener = this
         costumerAdapter.addAll(UserList)
         RecyclerViewUsers.adapter = costumerAdapter

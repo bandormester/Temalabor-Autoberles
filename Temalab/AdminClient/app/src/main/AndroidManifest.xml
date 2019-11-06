@@ -11,12 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CostumerDetailActivity"></activity>
-        <activity android:name=".ListUsersActivity" />
-        <activity android:name=".LoginActivity">
+        <activity android:name=".CostumerDetailActivity"
+            android:label="@string/customer_details">
+        </activity>
+        <activity android:name=".ListUsersActivity"
+            android:label="@string/customers"/>
+        <activity android:name=".LoginActivity"
+            android:label="@string/login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

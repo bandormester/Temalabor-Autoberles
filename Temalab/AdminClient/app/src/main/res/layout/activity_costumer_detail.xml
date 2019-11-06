@@ -6,39 +6,96 @@
     android:layout_height="match_parent"
     tools:context=".CostumerDetailActivity"
     android:orientation="vertical">
-    <TextView
-        android:id="@+id/tvFirstName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:id="@+id/tvLastName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:id="@+id/tvPhone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:id="@+id/tvEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:id="@+id/tvLicenceCard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:id="@+id/tvExpirationDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <CheckBox
-        android:id="@+id/cbApproved"
+
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <ImageView
-        android:id="@+id/ivProfilePic"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:contentDescription="Profilepic"
-        android:src="@mipmap/ic_launcher"/>
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/ivProfilePic"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:contentDescription="Profilepic"
+            android:src="@mipmap/ic_launcher"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+        <TextView
+            android:id="@+id/tvFirstName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/ivProfilePic"
+            android:layout_toRightOf="@id/ivProfilePic"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="30dp" />
+        <TextView
+            android:id="@+id/tvLastName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvFirstName"
+            android:layout_toRightOf="@id/ivProfilePic"
+            android:layout_toEndOf="@id/ivProfilePic"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp" />
+
+        <TextView
+            android:id="@+id/tvPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ivProfilePic"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:id="@+id/tvEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvPhone"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:id="@+id/tvLicenceCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvEmail"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:id="@+id/tvExpirationDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvLicenceCard"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:id="@+id/tvEnable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/enable"
+            android:layout_below="@id/tvExpirationDate"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp" />
+        <CheckBox
+            android:id="@+id/cbApproved"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvExpirationDate"
+            android:layout_toEndOf="@id/tvEnable"
+            android:layout_toRightOf="@id/tvEnable"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+             />
+    </RelativeLayout>
+
+
+
 
 </LinearLayout>

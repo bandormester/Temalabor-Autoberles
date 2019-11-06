@@ -40,7 +40,7 @@ class CostumerDetailActivity : AppCompatActivity() {
 
         var gson = GsonBuilder().setLenient().create()
         var builder : Retrofit.Builder = Retrofit.Builder()
-            .baseUrl("https://penzfeldobas.herokuapp.com/")
+            .baseUrl("http://ec2-3-14-28-216.us-east-2.compute.amazonaws.com")
             .addConverterFactory(GsonConverterFactory.create(gson))
         var retrofit : Retrofit = builder.build()
         val retroEnableUser = retrofit.create(RetroEnable::class.java)

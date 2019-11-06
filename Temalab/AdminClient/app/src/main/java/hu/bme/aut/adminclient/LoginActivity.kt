@@ -1,10 +1,14 @@
 package hu.bme.aut.adminclient
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
+import android.view.MotionEvent
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.google.gson.GsonBuilder
 import hu.bme.aut.adminclient.retrofit.RetroLogin
@@ -20,7 +24,7 @@ class LoginActivity : AppCompatActivity(){
     var gson = GsonBuilder().setLenient().create()
 
     var builder : Retrofit.Builder = Retrofit.Builder()
-        .baseUrl("https://penzfeldobas.herokuapp.com/")
+        .baseUrl("http://ec2-3-14-28-216.us-east-2.compute.amazonaws.com")
         .addConverterFactory(GsonConverterFactory.create(gson))
 
     var retrofit : Retrofit = builder.build()
@@ -29,6 +33,14 @@ class LoginActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        relativelayout.setOnTouchListener(object : View.OnTouchListener{
+            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                v?.hideKeyboard()
+                return v?.onTouchEvent(event) ?: true
+            }
+
+        })
+
         btLogin.setOnClickListener{
 
             val retroLogin = retrofit.create(RetroLogin::class.java)
@@ -36,6 +48,7 @@ class LoginActivity : AppCompatActivity(){
             val username = etUsername.text.toString()
             val password = etPassword.text.toString()
             val loginDetails = "$username:$password"
+
 
             val authHeader = "Basic " + Base64.encodeToString(loginDetails.toByteArray(),Base64.NO_WRAP)
 
@@ -55,7 +68,7 @@ class LoginActivity : AppCompatActivity(){
                             startActivity(myIntent)
                         }
                         else -> {
-                            Toast.makeText(this@LoginActivity,"Login failed",Toast.LENGTH_LONG)
+                            //Toast.makeText(this@LoginActivity,"Login failed",Toast.LENGTH_LONG).show()
                             Log.d("retrofit","Login failed")
                             Log.d("retrofit",response.toString())
                         }
@@ -63,11 +76,16 @@ class LoginActivity : AppCompatActivity(){
                 }
 
                 override fun onFailure(call: Call<String>?, t: Throwable) {
+                    //Toast.makeText(this@LoginActivity, t.message,Toast.LENGTH_LONG)
                     Log.d("retrofit", "call failed")
                     Log.d("retrofit",t.message)
                 }
             })
 
         }
+    }
+    fun View.hideKeyboard() {
+        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(windowToken, 0)
     }
 }
