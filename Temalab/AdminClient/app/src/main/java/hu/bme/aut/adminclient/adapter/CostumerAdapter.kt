@@ -71,8 +71,8 @@ class CostumerAdapter : RecyclerView.Adapter<CostumerAdapter.CostumerHolder>() {
         val loginDetails="admin:admin"
         val authHeader = "Basic " + Base64.encodeToString(loginDetails.toByteArray(), Base64.NO_WRAP)
 
-        val pictureUrl =//"https://upload.wikimedia.org/wikipedia/commons/3/3f/JPEG_example_flower.jpg"
-            "http://ec2-3-14-28-216.us-east-2.compute.amazonaws.com/customers/${costumer.customerId}/profile-image"
+        val pictureUrl ="https://upload.wikimedia.org/wikipedia/commons/3/3f/JPEG_example_flower.jpg"
+            //"http://ec2-3-14-28-216.us-east-2.compute.amazonaws.com/customers/${costumer.customerId}/profile-image"
         val url = GlideUrl(pictureUrl, LazyHeaders.Builder().addHeader("Authorization",authHeader).build())
         val options = RequestOptions()
             .diskCacheStrategy(DiskCacheStrategy.NONE)
