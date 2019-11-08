@@ -76,7 +76,7 @@ class LoginActivity : AppCompatActivity(){
                 }
 
                 override fun onFailure(call: Call<String>?, t: Throwable) {
-                    //Toast.makeText(this@LoginActivity, t.message,Toast.LENGTH_LONG)
+                    //Toast.makeText(this@LoginActivity, t.message,Toast.LENGTH_LONG).show
                     Log.d("retrofit", "call failed")
                     Log.d("retrofit",t.message)
                 }

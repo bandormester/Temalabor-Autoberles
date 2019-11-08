@@ -1,5 +1,7 @@
 package hu.bme.aut.adminclient.adapter
 
+import android.content.Context
+import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -7,9 +9,16 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.model.GlideUrl
+import com.bumptech.glide.load.model.LazyHeaders
+import com.bumptech.glide.request.RequestOptions
 import hu.bme.aut.adminclient.R
 import hu.bme.aut.adminclient.model.Costumer
+import kotlinx.android.synthetic.main.activity_costumer_detail.*
 import kotlinx.android.synthetic.main.costumer_row.view.*
+import kotlinx.android.synthetic.main.costumer_row.view.ivProfilePic
 import java.io.File
 import javax.xml.transform.Templates
 
@@ -19,11 +28,14 @@ class CostumerAdapter : RecyclerView.Adapter<CostumerAdapter.CostumerHolder>() {
 
     var itemClickListener : CostumerItemClickListener? = null
 
+    lateinit var  context : Context
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CostumerHolder {
         Log.d("recview","on create view holder")
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.costumer_row, parent, false)
+        context=parent.context
         return CostumerHolder(view)
     }
 
@@ -55,6 +67,21 @@ class CostumerAdapter : RecyclerView.Adapter<CostumerAdapter.CostumerHolder>() {
 
         holder.tvFirstName.text = costumer.firstName
         holder.tvLastName.text = costumer.lastName
+
+        val loginDetails="admin:admin"
+        val authHeader = "Basic " + Base64.encodeToString(loginDetails.toByteArray(), Base64.NO_WRAP)
+
+        val pictureUrl =//"https://upload.wikimedia.org/wikipedia/commons/3/3f/JPEG_example_flower.jpg"
+            "http://ec2-3-14-28-216.us-east-2.compute.amazonaws.com/customers/${costumer.customerId}/profile-image"
+        val url = GlideUrl(pictureUrl, LazyHeaders.Builder().addHeader("Authorization",authHeader).build())
+        val options = RequestOptions()
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+
+        Glide.with(context)
+            .load(url)
+            .apply(options)
+            .into(holder.ivProfilePic)
+
         Log.d("recview",holder.tvFirstName.text.toString())
         Log.d("recview",holder.tvLastName.text.toString())
     }
@@ -62,6 +89,7 @@ class CostumerAdapter : RecyclerView.Adapter<CostumerAdapter.CostumerHolder>() {
     inner class CostumerHolder(costumerView : View) : RecyclerView.ViewHolder(costumerView) {
         val tvFirstName: TextView = costumerView.tvFirstName
         val tvLastName: TextView = costumerView.tvLastName
+        val ivProfilePic = costumerView.ivProfilePic
 
         var costumer : Costumer? = null
         init{

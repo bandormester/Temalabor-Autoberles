@@ -13,23 +13,23 @@
         android:inputType="textEmailAddress"
         android:fontFamily="sans-serif"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="140dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"/>
+        android:layout_marginTop="219dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"/>
     <EditText
         android:id="@+id/etPassword"
         android:hint="@string/password"
         android:inputType="textPassword"
         android:fontFamily="sans-serif"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_below="@id/etUsername"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         />
     <Button
         android:id="@+id/btLogin"
@@ -41,9 +41,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/etPassword"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
         />
 
 </RelativeLayout>

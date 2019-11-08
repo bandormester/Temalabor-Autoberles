@@ -9,6 +9,11 @@ import android.util.Log
 import android.widget.CheckBox
 import android.widget.CompoundButton
 import android.widget.Toast
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.model.GlideUrl
+import com.bumptech.glide.load.model.LazyHeaders
+import com.bumptech.glide.request.RequestOptions
 import com.google.gson.GsonBuilder
 import hu.bme.aut.adminclient.retrofit.RetroEnable
 import hu.bme.aut.adminclient.retrofit.RetroListUsers
@@ -57,6 +62,20 @@ class CostumerDetailActivity : AppCompatActivity() {
         tvPhone.text = intent.getStringExtra(DETAIL_PHONE)
         tvLicenceCard.text = intent.getStringExtra(DETAIL_LICENCE)
         tvExpirationDate.text = intent.getStringExtra(DETAIL_EXPIRATION)
+
+
+        val pictureUrl =
+            "http://ec2-3-14-28-216.us-east-2.compute.amazonaws.com/customers/$detailedCostumerID/profile-image"
+        val url = GlideUrl(pictureUrl, LazyHeaders.Builder().addHeader("Authorization",header).build())
+        //val url = GlideUrl("https://upload.wikimedia.org/wikipedia/commons/3/3f/JPEG_example_flower.jpg", LazyHeaders.Builder().addHeader("Authorization",header).build())
+
+         val options = RequestOptions()
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+
+        Glide.with(this)
+            .load(url)
+            .apply(options)
+            .into(ivProfilePic)
 
         cbApproved.isChecked = intent.getBooleanExtra(DETAIL_ENABLED, false)
         cbApproved.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener{
