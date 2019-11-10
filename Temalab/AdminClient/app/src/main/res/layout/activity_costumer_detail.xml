@@ -12,6 +12,7 @@
         android:layout_height="match_parent">
 
         <ImageView
+            android:scaleType="centerInside"
             android:id="@+id/ivProfilePic"
             android:layout_width="200dp"
             android:layout_height="200dp"
@@ -93,6 +94,26 @@
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
              />
+        <ImageView
+            android:scaleType="centerInside"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:id="@+id/ivLicenceFront"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:layout_below="@id/tvEnable"
+            android:contentDescription="Licence Front"
+            android:layout_marginLeft="20dp" />
+        <ImageView
+            android:scaleType="centerInside"
+            android:id="@+id/ivLicenceBack"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/ivLicenceFront"
+            android:contentDescription="Licence Back"
+            android:layout_marginLeft="20dp" />
     </RelativeLayout>
 
 

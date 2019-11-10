@@ -70,16 +70,32 @@ class CostumerDetailActivity : AppCompatActivity() {
 
         val pictureUrl =
             "http://ec2-3-14-28-216.us-east-2.compute.amazonaws.com/customers/$detailedCostumerID/profile-image"
-        val url = GlideUrl(pictureUrl, LazyHeaders.Builder().addHeader("Authorization",header).build())
+        val profileGlideUrl = GlideUrl(pictureUrl, LazyHeaders.Builder().addHeader("Authorization",header).build())
+        val licenceFrontUrl =
+            "http://ec2-3-14-28-216.us-east-2.compute.amazonaws.com/customers/$detailedCostumerID/driving-licence-front"
+        val brontGlideUrl = GlideUrl(licenceFrontUrl, LazyHeaders.Builder().addHeader("Authorization",header).build())
+        val licenceBackUrl =
+            "http://ec2-3-14-28-216.us-east-2.compute.amazonaws.com/customers/$detailedCostumerID/driving-licence-back"
+        val backGlideUrl = GlideUrl(licenceBackUrl, LazyHeaders.Builder().addHeader("Authorization",header).build())
         //val url = GlideUrl("https://upload.wikimedia.org/wikipedia/commons/3/3f/JPEG_example_flower.jpg", LazyHeaders.Builder().addHeader("Authorization",header).build())
 
          val options = RequestOptions()
             .diskCacheStrategy(DiskCacheStrategy.NONE)
 
         Glide.with(this)
-            .load(url)
+            .load(profileGlideUrl)
             .apply(options)
             .into(ivProfilePic)
+
+        Glide.with(this)
+            .load(brontGlideUrl)
+            .apply(options)
+            .into(ivLicenceFront)
+
+        Glide.with(this)
+            .load(backGlideUrl)
+            .apply(options)
+            .into(ivLicenceBack)
 
         cbApproved.isChecked = intent.getBooleanExtra(DETAIL_ENABLED, false)
         cbApproved.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener{
