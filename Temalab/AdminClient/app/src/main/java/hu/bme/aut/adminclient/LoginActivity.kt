@@ -21,13 +21,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 class LoginActivity : AppCompatActivity(){
-    var gson = GsonBuilder().setLenient().create()
-
-    var builder : Retrofit.Builder = Retrofit.Builder()
-        .baseUrl("http://ec2-3-14-28-216.us-east-2.compute.amazonaws.com")
-        .addConverterFactory(GsonConverterFactory.create(gson))
-
-    var retrofit : Retrofit = builder.build()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,13 +28,20 @@ class LoginActivity : AppCompatActivity(){
 
 
 
-        relativelayout.setOnTouchListener(object : View.OnTouchListener{
-            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                v?.hideKeyboard()
-                return v?.onTouchEvent(event) ?: true
-            }
+        relativelayout.setOnTouchListener { v, event ->
+            v?.performClick()
+            v?.hideKeyboard()
+            v?.onTouchEvent(event) ?: true
+        }
 
-        })
+        val gson = GsonBuilder().setLenient().create()
+
+        val builder : Retrofit.Builder = Retrofit.Builder()
+            .baseUrl("http://ec2-3-14-28-216.us-east-2.compute.amazonaws.com")
+            .addConverterFactory(GsonConverterFactory.create(gson))
+
+        val retrofit : Retrofit = builder.build()
+
 
         btLogin.setOnClickListener{
 
@@ -67,6 +67,8 @@ class LoginActivity : AppCompatActivity(){
 
                             val myIntent : Intent = Intent()
                             myIntent.setClass(this@LoginActivity, ListUsersActivity::class.java)
+                            myIntent.putExtra("username",username)
+                            myIntent.putExtra("password",password)
                             startActivity(myIntent)
                         }
                         else -> {

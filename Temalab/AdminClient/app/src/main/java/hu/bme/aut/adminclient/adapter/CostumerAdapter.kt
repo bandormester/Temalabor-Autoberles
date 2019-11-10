@@ -95,6 +95,7 @@ class CostumerAdapter : RecyclerView.Adapter<CostumerAdapter.CostumerHolder>() {
     inner class CostumerHolder(costumerView : View) : RecyclerView.ViewHolder(costumerView) {
         val tvFirstName: TextView = costumerView.tvFirstName
         val tvLastName: TextView = costumerView.tvLastName
+
         val ivProfilePic = costumerView.ivProfilePic
 
         var costumer : Costumer? = null

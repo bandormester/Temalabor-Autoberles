@@ -63,20 +63,25 @@ class ListUsersActivity : AppCompatActivity(), CostumerAdapter.CostumerItemClick
 
     }
 
+    lateinit var username : String
+    lateinit var password : String
+
     override fun onStart() {
         super.onStart()
 
-        var gson = GsonBuilder().setLenient().create()
+        val gson = GsonBuilder().setLenient().create()
 
-        var builder : Retrofit.Builder = Retrofit.Builder()
+        val builder : Retrofit.Builder = Retrofit.Builder()
             .baseUrl("http://ec2-3-14-28-216.us-east-2.compute.amazonaws.com")
             .addConverterFactory(GsonConverterFactory.create(gson))
 
-        var retrofit : Retrofit = builder.build()
+        val retrofit : Retrofit = builder.build()
 
         val retroListUsers = retrofit.create(RetroListUsers::class.java)
 
-        val loginDetails = "admin:admin"
+         username = intent.getStringExtra("username")?:""
+         password = intent.getStringExtra("password")?:""
+        val loginDetails = "$username:$password"
 
         val header : String = "Basic " + Base64.encodeToString(loginDetails.toByteArray(), Base64.NO_WRAP)
 
@@ -113,6 +118,8 @@ class ListUsersActivity : AppCompatActivity(), CostumerAdapter.CostumerItemClick
         Log.d("detview","user clicked")
         val intent = Intent(this, CostumerDetailActivity::class.java)
         intent.putExtra(CostumerDetailActivity.DETAIL_ID,costumer.customerId)
+        intent.putExtra(CostumerDetailActivity.USER_NAME,username)
+        intent.putExtra(CostumerDetailActivity.USER_PASS,password)
         Log.d("retrofit",costumer.customerId.toString())
         intent.putExtra(CostumerDetailActivity.DETAIL_EMAIL,costumer.emailAddress)
         intent.putExtra(CostumerDetailActivity.DETAIL_PHONE,costumer.phone)

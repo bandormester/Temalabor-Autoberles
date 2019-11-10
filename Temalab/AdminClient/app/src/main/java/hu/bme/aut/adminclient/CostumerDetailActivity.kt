@@ -37,20 +37,24 @@ class CostumerDetailActivity : AppCompatActivity() {
         const val DETAIL_LICENCE = "detail.licence"
         const val DETAIL_EXPIRATION = "detail.expiration"
         const val DETAIL_ENABLED = "detail.enabled"
+        const val USER_NAME = "user.username"
+        const val USER_PASS = "user.password"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_costumer_detail)
 
-        var gson = GsonBuilder().setLenient().create()
-        var builder : Retrofit.Builder = Retrofit.Builder()
+        val gson = GsonBuilder().setLenient().create()
+        val builder : Retrofit.Builder = Retrofit.Builder()
             .baseUrl("http://ec2-3-14-28-216.us-east-2.compute.amazonaws.com")
             .addConverterFactory(GsonConverterFactory.create(gson))
-        var retrofit : Retrofit = builder.build()
+        val retrofit : Retrofit = builder.build()
         val retroEnableUser = retrofit.create(RetroEnable::class.java)
 
-        val loginDetails = "admin:admin"
+        val username = intent.getStringExtra(USER_NAME)
+        val password = intent.getStringExtra(USER_PASS)
+        val loginDetails = "$username:$password"
         val header : String = "Basic " + Base64.encodeToString(loginDetails.toByteArray(), Base64.NO_WRAP)
 
         val detailedCostumerID = intent.getIntExtra(DETAIL_ID,0)
