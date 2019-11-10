@@ -17,6 +17,7 @@
         <activity android:name=".ListUsersActivity"
             android:label="@string/customers"/>
         <activity android:name=".LoginActivity"
+            android:noHistory="true"
             android:label="@string/login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

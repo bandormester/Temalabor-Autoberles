@@ -104,6 +104,7 @@ class ListUsersActivity : AppCompatActivity(), CostumerAdapter.CostumerItemClick
     private fun setupRecyclerView(UserList : List<Costumer>) {
 
         costumerAdapter.itemClickListener = this
+        costumerAdapter.clear()
         costumerAdapter.addAll(UserList)
         RecyclerViewUsers.adapter = costumerAdapter
     }
