@@ -7,9 +7,14 @@
     tools:context=".CostumerDetailActivity"
     android:orientation="vertical">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:scaleType="centerInside"
@@ -115,6 +120,7 @@
             android:contentDescription="Licence Back"
             android:layout_marginLeft="20dp" />
     </RelativeLayout>
+    </ScrollView>
 
 
 
