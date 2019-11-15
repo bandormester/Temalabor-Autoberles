@@ -66,7 +66,7 @@ class LoginActivity : AppCompatActivity(){
                             Log.d("retrofit",response.toString())
 
                             val myIntent : Intent = Intent()
-                            myIntent.setClass(this@LoginActivity, ListUsersActivity::class.java)
+                            myIntent.setClass(this@LoginActivity, ListCarsActivity::class.java)
                             myIntent.putExtra("username",username)
                             myIntent.putExtra("password",password)
                             startActivity(myIntent)
@@ -80,7 +80,7 @@ class LoginActivity : AppCompatActivity(){
                 }
 
                 override fun onFailure(call: Call<String>?, t: Throwable) {
-                    //Toast.makeText(this@LoginActivity, t.message,Toast.LENGTH_LONG).show
+                    //Toast.makeText(this@LoginActivity,     t.message,Toast.LENGTH_LONG).show
                     Log.d("retrofit", "call failed")
                     Log.d("retrofit",t.message)
                 }
