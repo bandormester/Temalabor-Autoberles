@@ -77,5 +77,10 @@ class ListCarsActivity : AppCompatActivity(), CarAdapter.CarItemClickListener {
 
     override fun onCarSelected(car: Car) {
         Log.d("detview","car clicked")
+        val intent = Intent(this, CarDetailActivity::class.java)
+        intent.putExtra(CarDetailActivity.CAR_ID, car.carId)
+        intent.putExtra(CarDetailActivity.CAR_MODEL, car.model)
+        intent.putExtra("carasd",car)
+        startActivity(intent)
     }
 }

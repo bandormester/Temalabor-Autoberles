@@ -1,6 +1,8 @@
 package hu.bme.aut.adminclient.model
 
-class Car {
+import java.io.Serializable
+
+class Car : Serializable {
     var carId : Int = 0
     var licencePlate : String = ""
     var currentKm : Int = 0
@@ -8,7 +10,7 @@ class Car {
     var engineType : EngineType = EngineType.DIESEL
     var model : String = ""
     var color : String = ""
-    var state : String = ""
+    var state : State = State.RENTABLE
     var price : Int = 1
     var station : Station = Station()
 }

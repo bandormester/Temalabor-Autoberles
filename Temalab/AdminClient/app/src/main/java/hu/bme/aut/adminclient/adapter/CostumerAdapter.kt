@@ -83,10 +83,13 @@ class CostumerAdapter : RecyclerView.Adapter<CostumerAdapter.CostumerHolder>() {
         val options = RequestOptions()
             .diskCacheStrategy(DiskCacheStrategy.NONE)
 
-        Glide.with(context)
-            .load(url)
-            .apply(options)
-            .into(holder.ivProfilePic)
+       // Glide.with(context)
+       //     .load(url)
+       //     .apply(options)
+       //     .into(holder.ivProfilePic)
+
+        holder.ivProfilePic.setImageResource(R.drawable.ic_launcher_background)
+        //TODO  asdasd
 
         Log.d("recview",holder.tvFirstName.text.toString())
         Log.d("recview",holder.tvLastName.text.toString())

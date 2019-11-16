@@ -76,6 +76,7 @@ class CarAdapter : RecyclerView.Adapter<CarAdapter.CarHolder>() {
 
         holder.tvCarModel.text = car.model
         holder.tvCarColor.text = car.color
+        holder.tvCarKm.text = car.currentKm.toString() + " Km"
 
         Log.d("retrocar","- " + car.carId+" : "+car.engineType?:"Null")
 
@@ -107,6 +108,7 @@ class CarAdapter : RecyclerView.Adapter<CarAdapter.CarHolder>() {
     inner class CarHolder(carView : View) : RecyclerView.ViewHolder(carView) {
         val tvCarModel: TextView = carView.tvCarModel
         val tvCarColor: TextView = carView.tvCarColor
+        val tvCarKm: TextView = carView.tvKilometer
 
         val ivEnginePic = carView.ivEnginePic
 
