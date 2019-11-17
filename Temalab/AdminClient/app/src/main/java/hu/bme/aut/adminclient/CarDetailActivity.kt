@@ -9,11 +9,13 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.google.gson.GsonBuilder
+import hu.bme.aut.adminclient.fragment.AddCarDialog
 import hu.bme.aut.adminclient.model.Car
 import hu.bme.aut.adminclient.model.State
 import hu.bme.aut.adminclient.retrofit.RetroEnable
 import hu.bme.aut.adminclient.retrofit.RetroListCars
 import kotlinx.android.synthetic.main.activity_car_detail.*
+import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -64,6 +66,11 @@ class CarDetailActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
         tvCarModel.text = detailedCar.model
         tvCarKm.text = detailedCar.currentKm.toString()
 
+
+        btNewCar.setOnClickListener {
+            val newCarDialog = AddCarDialog()
+            newCarDialog.show(supportFragmentManager,"AddCarDialog")
+        }
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {

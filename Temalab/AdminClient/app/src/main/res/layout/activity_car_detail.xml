@@ -52,6 +52,17 @@
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="96dp"/>
 
+            <Button
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="12dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="120dp"
+                android:id="@+id/btNewCar"
+                android:text="Add new car"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

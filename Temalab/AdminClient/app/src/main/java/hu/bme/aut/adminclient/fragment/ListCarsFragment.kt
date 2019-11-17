@@ -1,42 +1,54 @@
-package hu.bme.aut.adminclient
+package hu.bme.aut.adminclient.fragment
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.google.gson.GsonBuilder
+import hu.bme.aut.adminclient.CarDetailActivity
+import hu.bme.aut.adminclient.NavigationActivity
+import hu.bme.aut.adminclient.R
 import hu.bme.aut.adminclient.adapter.CarAdapter
-import hu.bme.aut.adminclient.adapter.CostumerAdapter
 import hu.bme.aut.adminclient.model.Car
-import hu.bme.aut.adminclient.model.Costumer
 import hu.bme.aut.adminclient.retrofit.RetroListCars
-import hu.bme.aut.adminclient.retrofit.RetroListUsers
 import kotlinx.android.synthetic.main.activity_list_cars.*
-import kotlinx.android.synthetic.main.activity_list_users.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class ListCarsActivity : AppCompatActivity(), CarAdapter.CarItemClickListener {
+class ListCarsFragment : Fragment(), CarAdapter.CarItemClickListener {
 
 
     private lateinit var carAdapter: CarAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_list_cars)
-        carAdapter = CarAdapter()
-        RecyclerViewCars.adapter = carAdapter
     }
 
     lateinit var username : String
     lateinit var password : String
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        username = (activity as NavigationActivity).getUsername()//arguments!!.getString("username","")
+        password = (activity as NavigationActivity).getPassword()//arguments!!.getString("password","")
+        return inflater.inflate(R.layout.activity_list_cars, container, false)
+    }
+
     override fun onStart() {
         super.onStart()
+
+        carAdapter = CarAdapter()
+        RecyclerViewCars.adapter = carAdapter
 
         val gson = GsonBuilder().setLenient().create()
         val builder : Retrofit.Builder = Retrofit.Builder()
@@ -44,8 +56,8 @@ class ListCarsActivity : AppCompatActivity(), CarAdapter.CarItemClickListener {
             .addConverterFactory(GsonConverterFactory.create(gson))
         val retrofit : Retrofit = builder.build()
         val retroListCars = retrofit.create(RetroListCars::class.java)
-        username = intent.getStringExtra("username")?:""
-        password = intent.getStringExtra("password")?:""
+       // username = // intent.getStringExtra("username")?:""
+        //password = "admin" // intent.getStringExtra("password")?:""
         val loginDetails = "$username:$password"
         val header : String = "Basic " + Base64.encodeToString(loginDetails.toByteArray(), Base64.NO_WRAP)
         val call = retroListCars.getCarList(header)
@@ -77,7 +89,7 @@ class ListCarsActivity : AppCompatActivity(), CarAdapter.CarItemClickListener {
 
     override fun onCarSelected(car: Car) {
         Log.d("detview","car clicked")
-        val intent = Intent(this, CarDetailActivity::class.java)
+        val intent = Intent(activity, CarDetailActivity::class.java)
         //intent.putExtra(CarDetailActivity.CAR_ID, car.carId)
         //intent.putExtra(CarDetailActivity.CAR_MODEL, car.model)
         intent.putExtra(CarDetailActivity.USERNAME, username)

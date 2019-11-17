@@ -11,13 +11,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CarDetailActivity"></activity>
-        <activity android:name=".ListCarsActivity" />
+        <activity
+            android:name=".NavigationActivity"
+            android:label="@string/title_activity_navigation"></activity>
+        <activity android:name=".CarDetailActivity" />
+        <activity android:name=".fragment.ListCarsFragment" />
         <activity
             android:name=".CostumerDetailActivity"
             android:label="@string/customer_details" />
         <activity
-            android:name=".ListUsersActivity"
+            android:name=".fragment.ListUsersFragment"
             android:label="@string/customers" />
         <activity
             android:name=".LoginActivity"

@@ -10,6 +10,8 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentTransaction
 import com.google.gson.GsonBuilder
 import hu.bme.aut.adminclient.retrofit.RetroLogin
 import kotlinx.android.synthetic.main.activity_main.*
@@ -20,7 +22,10 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-class LoginActivity : AppCompatActivity(){
+class LoginActivity : FragmentActivity(){
+
+    lateinit var username : String
+    lateinit var password : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,8 +52,8 @@ class LoginActivity : AppCompatActivity(){
 
             val retroLogin = retrofit.create(RetroLogin::class.java)
 
-            val username = etUsername.text.toString()
-            val password = etPassword.text.toString()
+            username = etUsername.text.toString()
+            password = etPassword.text.toString()
             val loginDetails = "$username:$password"
 
 
@@ -65,14 +70,25 @@ class LoginActivity : AppCompatActivity(){
                             Log.d("retrofit","Login Successful")
                             Log.d("retrofit",response.toString())
 
+
+                           /* val transaction = supportFragmentManager.beginTransaction()
+                            val fragment = ListCarsFragment()
+                            val bundle = Bundle()
+                            bundle.putString("username",username)
+                            bundle.putString("password",password)
+                            fragment.arguments = bundle
+                            transaction.replace(R.id.fragmentFrame, fragment)
+                            transaction.commit()*/
+
+
                             val myIntent : Intent = Intent()
-                            myIntent.setClass(this@LoginActivity, ListCarsActivity::class.java)
+                            myIntent.setClass(this@LoginActivity, NavigationActivity::class.java)
                             myIntent.putExtra("username",username)
                             myIntent.putExtra("password",password)
                             startActivity(myIntent)
                         }
                         else -> {
-                            //Toast.makeText(this@LoginActivity,"Login failed",Toast.LENGTH_LONG).show()
+                            Toast.makeText(this@LoginActivity,"Login failed",Toast.LENGTH_LONG).show()
                             Log.d("retrofit","Login failed")
                             Log.d("retrofit",response.toString())
                         }

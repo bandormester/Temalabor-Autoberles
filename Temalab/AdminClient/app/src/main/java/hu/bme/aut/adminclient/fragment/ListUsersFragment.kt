@@ -1,11 +1,17 @@
-package hu.bme.aut.adminclient
+package hu.bme.aut.adminclient.fragment
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.google.gson.GsonBuilder
+import hu.bme.aut.adminclient.CostumerDetailActivity
+import hu.bme.aut.adminclient.NavigationActivity
+import hu.bme.aut.adminclient.R
 import hu.bme.aut.adminclient.adapter.CostumerAdapter
 import hu.bme.aut.adminclient.model.Costumer
 import hu.bme.aut.adminclient.retrofit.RetroListUsers
@@ -16,51 +22,23 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class ListUsersActivity : AppCompatActivity(), CostumerAdapter.CostumerItemClickListener {
+class ListUsersFragment : Fragment(), CostumerAdapter.CostumerItemClickListener {
 
     private lateinit var costumerAdapter: CostumerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_list_users)
-        costumerAdapter = CostumerAdapter()
-        RecyclerViewUsers.adapter = costumerAdapter
+        //setContentView(R.layout.activity_list_users)
+    }
 
-       /* var gson = GsonBuilder().setLenient().create()
-
-        var builder : Retrofit.Builder = Retrofit.Builder()
-            .baseUrl("https://penzfeldobas.herokuapp.com/")
-            .addConverterFactory(GsonConverterFactory.create(gson))
-
-        var retrofit : Retrofit = builder.build()
-
-        val retroListUsers = retrofit.create(RetroListUsers::class.java)
-
-        val loginDetails = "admin:admin"
-
-        val header : String = "Basic " + Base64.encodeToString(loginDetails.toByteArray(), Base64.NO_WRAP)
-
-        val call = retroListUsers.getUserList(header)
-
-        call.enqueue(object : Callback<List<Costumer>> {
-            override fun onFailure(call: Call<List<Costumer>>, t: Throwable) {
-                Log.d("retrofit", "Listing failed")
-            }
-
-            override fun onResponse(
-                call: Call<List<Costumer>>,
-                response: Response<List<Costumer>>
-            ) {
-                Log.d("retrofit", "Listing succeeded")
-                var Users = response.body()?: listOf<Costumer>()
-
-                setupRecyclerView(Users)
-
-                Log.d("retrofit", Users[1].firstName)
-            }
-
-        })*/
-
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        username = (activity as NavigationActivity).getUsername()
+        password = (activity as NavigationActivity).getPassword()
+        return inflater.inflate(R.layout.activity_list_users,container,false)
     }
 
     lateinit var username : String
@@ -68,6 +46,8 @@ class ListUsersActivity : AppCompatActivity(), CostumerAdapter.CostumerItemClick
 
     override fun onStart() {
         super.onStart()
+        costumerAdapter = CostumerAdapter()
+        RecyclerViewUsers.adapter = costumerAdapter
 
         val gson = GsonBuilder().setLenient().create()
 
@@ -79,8 +59,8 @@ class ListUsersActivity : AppCompatActivity(), CostumerAdapter.CostumerItemClick
 
         val retroListUsers = retrofit.create(RetroListUsers::class.java)
 
-         username = intent.getStringExtra("username")?:""
-         password = intent.getStringExtra("password")?:""
+        // username = intent.getStringExtra("username")?:""
+         //password = intent.getStringExtra("password")?:""
         val loginDetails = "$username:$password"
 
         val header : String = "Basic " + Base64.encodeToString(loginDetails.toByteArray(), Base64.NO_WRAP)
@@ -116,7 +96,7 @@ class ListUsersActivity : AppCompatActivity(), CostumerAdapter.CostumerItemClick
 
     override fun onCostumerSelected(costumer: Costumer) {
         Log.d("detview","user clicked")
-        val intent = Intent(this, CostumerDetailActivity::class.java)
+        val intent = Intent(activity, CostumerDetailActivity::class.java)
         intent.putExtra(CostumerDetailActivity.DETAIL_ID,costumer.customerId)
         intent.putExtra(CostumerDetailActivity.USER_NAME,username)
         intent.putExtra(CostumerDetailActivity.USER_PASS,password)
