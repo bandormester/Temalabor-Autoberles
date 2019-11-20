@@ -13,18 +13,17 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".NavigationActivity"
-            android:label="@string/title_activity_navigation"></activity>
+            ></activity>
         <activity android:name=".CarDetailActivity" />
         <activity android:name=".fragment.ListCarsFragment" />
         <activity
             android:name=".CostumerDetailActivity"
-            android:label="@string/customer_details" />
+ />
         <activity
             android:name=".fragment.ListUsersFragment"
-            android:label="@string/customers" />
+  />
         <activity
             android:name=".LoginActivity"
-            android:label="@string/login"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

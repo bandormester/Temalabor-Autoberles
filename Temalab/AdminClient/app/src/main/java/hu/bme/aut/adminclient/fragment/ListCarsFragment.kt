@@ -4,9 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import com.google.gson.GsonBuilder
 import hu.bme.aut.adminclient.CarDetailActivity
@@ -15,6 +13,7 @@ import hu.bme.aut.adminclient.R
 import hu.bme.aut.adminclient.adapter.CarAdapter
 import hu.bme.aut.adminclient.model.Car
 import hu.bme.aut.adminclient.retrofit.RetroListCars
+import kotlinx.android.synthetic.main.activity_car_detail.*
 import kotlinx.android.synthetic.main.activity_list_cars.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -29,6 +28,7 @@ class ListCarsFragment : Fragment(), CarAdapter.CarItemClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
     lateinit var username : String
@@ -42,6 +42,20 @@ class ListCarsFragment : Fragment(), CarAdapter.CarItemClickListener {
         username = (activity as NavigationActivity).getUsername()//arguments!!.getString("username","")
         password = (activity as NavigationActivity).getPassword()//arguments!!.getString("password","")
         return inflater.inflate(R.layout.activity_list_cars, container, false)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        super.onCreateOptionsMenu(menu, inflater)
+
+        inflater!!.inflate(R.menu.new_car,menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+            val newCarDialog = AddCarDialog()
+            newCarDialog.show(activity!!.supportFragmentManager,"AddCarDialog")
+
+
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onStart() {

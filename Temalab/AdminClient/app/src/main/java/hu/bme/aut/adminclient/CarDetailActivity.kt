@@ -5,9 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.TextView
+import android.widget.Toolbar
 import com.google.gson.GsonBuilder
 import hu.bme.aut.adminclient.fragment.AddCarDialog
 import hu.bme.aut.adminclient.model.Car
@@ -36,6 +39,9 @@ class CarDetailActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_car_detail)
+        detailedCar  = intent.getSerializableExtra(DETAILED_CAR) as Car
+        title = detailedCar.model
+
 
         val gson = GsonBuilder().setLenient().create()
         val builder : Retrofit.Builder = Retrofit.Builder()
@@ -49,11 +55,8 @@ class CarDetailActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
         val loginDetails = "$username:$password"
          header = "Basic " + Base64.encodeToString(loginDetails.toByteArray(), Base64.NO_WRAP)
 
-        detailedCar  = intent.getSerializableExtra(DETAILED_CAR) as Car
+
         Log.d("retrofit",detailedCar.carId.toString())
-
-
-
 
         val list_of_items = arrayOf(State.RENTABLE, State.MAINTENANCE, State.SHIPPING, State.RENTED)
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, list_of_items)
@@ -67,10 +70,10 @@ class CarDetailActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
         tvCarKm.text = detailedCar.currentKm.toString()
 
 
-        btNewCar.setOnClickListener {
-            val newCarDialog = AddCarDialog()
-            newCarDialog.show(supportFragmentManager,"AddCarDialog")
-        }
+       // btNewCar.setOnClickListener {
+       //     val newCarDialog = AddCarDialog()
+       //     newCarDialog.show(supportFragmentManager,"AddCarDialog")
+       // }
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -79,6 +82,6 @@ class CarDetailActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         Log.d("retrofit", (spCarState.selectedItem as State).toString())
-        retroCarStatus.changeCarState(header,detailedCar.carId.toString(),(spCarState.selectedItem as State).toString())
+        val call = retroCarStatus.changeCarState(header,detailedCar.carId.toString(),(spCarState.selectedItem as State).toString())
     }
 }

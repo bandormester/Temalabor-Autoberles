@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/NoToolbar"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,6 +9,21 @@
     tools:context=".LoginActivity"
     android:id="@+id/relativelayout">
 
+    <!--<androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Log in"
+            android:gravity="center"
+            />
+    </androidx.appcompat.widget.Toolbar>
+-->
     <EditText
         android:id="@+id/etUsername"
         android:hint="@string/username"
@@ -46,8 +62,4 @@
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
         />
-        <FrameLayout
-            android:id="@+id/fragmentFrame"
-            android:layout_width="match_parent"
-            android:layout_height="600dp"/>
 </RelativeLayout>

@@ -10,8 +10,10 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentTransaction
+import androidx.appcompat.widget.Toolbar
 import com.google.gson.GsonBuilder
 import hu.bme.aut.adminclient.retrofit.RetroLogin
 import kotlinx.android.synthetic.main.activity_main.*
@@ -22,7 +24,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-class LoginActivity : FragmentActivity(){
+class LoginActivity : AppCompatActivity(){
 
     lateinit var username : String
     lateinit var password : String
@@ -31,7 +33,9 @@ class LoginActivity : FragmentActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //setSupportActionBar(toolbar)
 
+        title = "Log in"
 
         relativelayout.setOnTouchListener { v, event ->
             v?.performClick()
@@ -70,17 +74,6 @@ class LoginActivity : FragmentActivity(){
                             Log.d("retrofit","Login Successful")
                             Log.d("retrofit",response.toString())
 
-
-                           /* val transaction = supportFragmentManager.beginTransaction()
-                            val fragment = ListCarsFragment()
-                            val bundle = Bundle()
-                            bundle.putString("username",username)
-                            bundle.putString("password",password)
-                            fragment.arguments = bundle
-                            transaction.replace(R.id.fragmentFrame, fragment)
-                            transaction.commit()*/
-
-
                             val myIntent : Intent = Intent()
                             myIntent.setClass(this@LoginActivity, NavigationActivity::class.java)
                             myIntent.putExtra("username",username)
@@ -88,7 +81,7 @@ class LoginActivity : FragmentActivity(){
                             startActivity(myIntent)
                         }
                         else -> {
-                            Toast.makeText(this@LoginActivity,"Login failed",Toast.LENGTH_LONG).show()
+                            //Toast.makeText(this@LoginActivity,"Login failed",Toast.LENGTH_LONG).show()
                             Log.d("retrofit","Login failed")
                             Log.d("retrofit",response.toString())
                         }

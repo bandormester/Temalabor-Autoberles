@@ -7,21 +7,67 @@
         android:id="@+id/etCarModel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="model"/>
-
+        android:hint="model"
+        android:inputType="text"
+        android:importantForAutofill="no" />
+    <EditText
+        android:id="@+id/etCarBrand"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="brand"
+        android:inputType="text"
+        android:importantForAutofill="no"/>
     <EditText
         android:id="@+id/etCarColor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="color" />
+        android:hint="color"
+        android:inputType="text"
+        android:importantForAutofill="no"/>
+    <EditText
+        android:id="@+id/etCarPlate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="licence plate"
+        android:inputType="text"
+        android:importantForAutofill="no"/>
+    <EditText
+        android:id="@+id/etCarPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="price"
+        android:text="0"
+        android:inputType="number"
+        android:importantForAutofill="no"/>
+    <EditText
+        android:id="@+id/etCarKm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Km"
+        android:text="0"
+        android:inputType="number"
+        android:importantForAutofill="no"/>
+    <EditText
+        android:id="@+id/etCarStation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="station id"
+        android:text="0"
+        android:inputType="number"
+        android:importantForAutofill="no"/>
+
+    <Spinner
+        android:id="@+id/spCarEngine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
     <Button
         android:id="@+id/btAccept"
-        android:hint="Accept"
+        android:text="Accept"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <Button
         android:id="@+id/btCancel"
-        android:hint="Cancel"
+        android:text="Cancel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 </LinearLayout>

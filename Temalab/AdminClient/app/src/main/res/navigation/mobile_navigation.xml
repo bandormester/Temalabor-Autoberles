@@ -8,18 +8,13 @@
     <fragment
         android:id="@+id/navigation_listcars"
         android:name="hu.bme.aut.adminclient.fragment.ListCarsFragment"
-        android:label="@string/title_home"
+        android:label="@string/title_cars"
         tools:layout="@layout/activity_list_cars" />
 
     <fragment
         android:id="@+id/navigation_listusers"
         android:name="hu.bme.aut.adminclient.fragment.ListUsersFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/title_customers"
         tools:layout="@layout/activity_list_users" />
 
-    <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="hu.bme.aut.adminclient.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
 </navigation>

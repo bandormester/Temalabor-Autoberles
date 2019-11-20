@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".CarDetailActivity">
 
+
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -43,7 +45,7 @@
 
             <Spinner
                 android:id="@+id/spCarState"
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:spinnerMode="dropdown"
                 app:layout_constraintStart_toStartOf="parent"
@@ -51,17 +53,6 @@
                 android:layout_marginStart="12dp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="96dp"/>
-
-            <Button
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginStart="12dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginTop="120dp"
-                android:id="@+id/btNewCar"
-                android:text="Add new car"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

@@ -1,5 +1,6 @@
 package hu.bme.aut.adminclient
 
+import android.app.ActionBar
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
@@ -44,6 +45,7 @@ class CostumerDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_costumer_detail)
+        title=intent.getStringExtra(DETAIL_FIRST)!!+" "+intent.getStringExtra(DETAIL_LAST)
 
         val gson = GsonBuilder().setLenient().create()
         val builder : Retrofit.Builder = Retrofit.Builder()
