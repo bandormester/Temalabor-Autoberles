@@ -7,10 +7,10 @@ class Car : Serializable {
     var licencePlate : String = ""
     var currentKm : Int = 0
     var brand : String = ""
-    var engineType : EngineType = EngineType.DIESEL
+    var engineType : String = EngineType.DIESEL.toString()
     var model : String = ""
     var color : String = ""
-    var state : State = State.RENTABLE
+    var state : String = State.RENTABLE.toString()
     var price : Int = 1
-    var station : Station = Station()
+    var station : Station? = Station()
 }

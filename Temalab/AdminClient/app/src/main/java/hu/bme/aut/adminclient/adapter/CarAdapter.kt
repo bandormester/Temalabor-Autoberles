@@ -74,32 +74,18 @@ class CarAdapter : RecyclerView.Adapter<CarAdapter.CarHolder>() {
 
         holder.car = car
 
-        holder.tvCarModel.text = car.model
+        holder.tvCarModel.text = (car.brand+" "+car.model)
         holder.tvCarColor.text = car.color
-        holder.tvCarKm.text = car.currentKm.toString() + " Km"
+        holder.tvCarKm.text = (car.currentKm.toString() + " Km")
 
         Log.d("retrocar","- " + car.carId+" : "+car.engineType?:"Null")
 
         when(car.engineType?:EngineType.DIESEL){
-            EngineType.DIESEL -> holder.ivEnginePic.setImageResource(R.mipmap.ic_disel)
-            EngineType.ELECTRIC -> holder.ivEnginePic.setImageResource(R.mipmap.ic_electric)
-            EngineType.BENZINE -> holder.ivEnginePic.setImageResource(R.mipmap.ic_benzine)
+            EngineType.DIESEL.toString() -> holder.ivEnginePic.setImageResource(R.mipmap.ic_disel)
+            EngineType.ELECTRIC.toString() -> holder.ivEnginePic.setImageResource(R.mipmap.ic_electric)
+            EngineType.BENZINE.toString() -> holder.ivEnginePic.setImageResource(R.mipmap.ic_benzine)
             else->holder.ivEnginePic.setImageResource(R.drawable.ic_launcher_background)
         }
-
-
-        val loginDetails="admin:admin"
-        val authHeader = "Basic " + Base64.encodeToString(loginDetails.toByteArray(), Base64.NO_WRAP)
-
-        ////    "http://ec2-3-14-28-216.us-east-2.compute.amazonaws.com/customers/${costumer.customerId}/profile-image"
-        //val url = GlideUrl(pictureUrl, LazyHeaders.Builder().addHeader("Authorization",authHeader).build())
-        //val options = RequestOptions()
-        //    .diskCacheStrategy(DiskCacheStrategy.NONE)
-
-        // Glide.with(context)
-        //    .load(url)
-        //    .apply(options)
-        //    .into(holder.ivProfilePic)
 
         Log.d("recview",holder.tvCarModel.text.toString())
         Log.d("recview",holder.tvCarColor.text.toString())

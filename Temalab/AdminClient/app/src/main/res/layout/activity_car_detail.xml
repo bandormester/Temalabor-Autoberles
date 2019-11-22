@@ -4,57 +4,115 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CarDetailActivity">
+    tools:context=".CarDetailActivity"
+    android:theme="@style/AppThemeBigText">
 
+        <ImageView
+            android:id="@+id/ivCarDetailPic"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="32dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            />
 
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/tvCarModel"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginTop="24dp"/>
-            <TextView
+             <TextView
                 android:id="@+id/tvCarColor"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ivCarDetailPic"
+                app:layout_constraintTop_toTopOf="@id/ivCarDetailPic"
+                app:layout_constraintBottom_toTopOf="@id/tvCarKm"
+                 android:minWidth="100dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginTop="48dp"/>
+                 android:layout_marginStart="32dp"
+                 android:layout_marginLeft="32dp" />
             <TextView
                 android:id="@+id/tvCarKm"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tvCarColor"
+                app:layout_constraintBottom_toTopOf="@id/tvCarLicencePlate"
+                app:layout_constraintTop_toBottomOf="@id/tvCarColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tvCarLicencePlate"
+                app:layout_constraintStart_toStartOf="@id/tvCarColor"
+                app:layout_constraintTop_toBottomOf="@id/tvCarKm"
+                app:layout_constraintBottom_toTopOf="@id/tvCarPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tvCarPrice"
+                app:layout_constraintStart_toStartOf="@id/tvCarColor"
+                app:layout_constraintTop_toBottomOf="@id/tvCarLicencePlate"
+                app:layout_constraintBottom_toBottomOf="@id/ivCarDetailPic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:id="@+id/llCarState"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginTop="72dp"/>
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivCarDetailPic"
+                android:layout_marginLeft="32dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp">
 
-            <Spinner
-                android:id="@+id/spCarState"
+                <TextView
+                    android:text="@string/state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"/>
+                <Spinner
+                    android:id="@+id/spCarState"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:spinnerMode="dropdown"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/llCarLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:spinnerMode="dropdown"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginStart="12dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginTop="96dp"/>
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toStartOf="@id/llCarState"
+                app:layout_constraintTop_toBottomOf="@id/llCarState">
+                <TextView
+                    android:text="@string/station"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"/>
+                <Spinner
+                    android:id="@+id/spCarLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+            </LinearLayout>
 
+
+
+    <TextView
+        android:id="@+id/tvCarLocation"
+        android:text="@string/current_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        app:layout_constraintTop_toBottomOf="@id/llCarLocation"
+        app:layout_constraintBottom_toTopOf="@id/mvCarMap"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mvCarMap"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCarLocation"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>

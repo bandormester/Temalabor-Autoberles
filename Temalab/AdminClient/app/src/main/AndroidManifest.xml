@@ -11,10 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyClcFl9MS1Gw7W2S-oIoyfzaohJ3BmnCLQ"/>
         <activity
             android:name=".NavigationActivity"
             ></activity>
-        <activity android:name=".CarDetailActivity" />
+        <activity android:name=".CarDetailActivity"
+            android:theme="@style/AppThemeBigText"/>
         <activity android:name=".fragment.ListCarsFragment" />
         <activity
             android:name=".CostumerDetailActivity"

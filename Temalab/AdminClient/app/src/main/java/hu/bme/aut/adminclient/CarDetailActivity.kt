@@ -3,6 +3,7 @@ package hu.bme.aut.adminclient
 import android.icu.text.StringPrepParseException
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,18 +12,33 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.Toolbar
+import com.google.android.gms.maps.*
+import com.google.android.gms.maps.model.LatLng
 import com.google.gson.GsonBuilder
 import hu.bme.aut.adminclient.fragment.AddCarDialog
 import hu.bme.aut.adminclient.model.Car
+import hu.bme.aut.adminclient.model.EngineType
 import hu.bme.aut.adminclient.model.State
+import hu.bme.aut.adminclient.model.Station
 import hu.bme.aut.adminclient.retrofit.RetroEnable
 import hu.bme.aut.adminclient.retrofit.RetroListCars
 import kotlinx.android.synthetic.main.activity_car_detail.*
 import kotlinx.android.synthetic.main.activity_main.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class CarDetailActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
+class CarDetailActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener, OnMapReadyCallback{
+    private lateinit var mMap : GoogleMap
+
+    override fun onMapReady(p0: GoogleMap) {
+        mMap = p0
+
+        val sy = LatLng(-34.0,151.0)
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sy))
+    }
 
 
     companion object{
@@ -35,12 +51,18 @@ class CarDetailActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
     private lateinit var retroCarStatus : RetroListCars
     private lateinit var header : String
     private lateinit var detailedCar : Car
+    private lateinit var list_of_stations : List<Station>
+    private var initSpinner = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_car_detail)
+
+        mvCarMap.onCreate(savedInstanceState)
+        mvCarMap.getMapAsync(this)
+
         detailedCar  = intent.getSerializableExtra(DETAILED_CAR) as Car
-        title = detailedCar.model
+        title = detailedCar.brand+" "+detailedCar.model
 
 
         val gson = GsonBuilder().setLenient().create()
@@ -50,30 +72,67 @@ class CarDetailActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
         val retrofit : Retrofit = builder.build()
          retroCarStatus = retrofit.create(RetroListCars::class.java)
 
-        val username = intent.getStringExtra(CostumerDetailActivity.USER_NAME)
-        val password = intent.getStringExtra(CostumerDetailActivity.USER_PASS)
+        val username = intent.getStringExtra(CarDetailActivity.USERNAME)
+        val password = intent.getStringExtra(CarDetailActivity.PASSWORD)
         val loginDetails = "$username:$password"
          header = "Basic " + Base64.encodeToString(loginDetails.toByteArray(), Base64.NO_WRAP)
 
 
         Log.d("retrofit",detailedCar.carId.toString())
 
-        val list_of_items = arrayOf(State.RENTABLE, State.MAINTENANCE, State.SHIPPING, State.RENTED)
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, list_of_items)
-        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
+        var call = retroCarStatus.getCarStateValues().enqueue(object : Callback<List<String>>{
+            override fun onFailure(call: Call<List<String>>, t: Throwable) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
 
-        spCarState.onItemSelectedListener=this
-        spCarState.adapter = adapter
+            override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
+                val list_of_items = response.body()?: listOf<String>()
+                val adapter = ArrayAdapter(this@CarDetailActivity, android.R.layout.simple_spinner_item, list_of_items)
+                adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
+                spCarState.adapter = adapter
+                spCarState.setSelection(adapter.getPosition(detailedCar.state))
+                spCarState.onItemSelectedListener=this@CarDetailActivity
+            }
+
+        })
+
+
+         call = retroCarStatus.getStations().enqueue(object : Callback<List<Station>>{
+            override fun onFailure(call: Call<List<Station>>, t: Throwable) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onResponse(call: Call<List<Station>>, response: Response<List<Station>>) {
+                list_of_stations = response.body()?: listOf()
+                val list_of_items = mutableListOf<String>()
+                for(s in list_of_stations) list_of_items.add(s.name)
+                val adapter = ArrayAdapter(this@CarDetailActivity, android.R.layout.simple_spinner_item, list_of_items)
+                adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
+                spCarLocation.adapter = adapter
+                spCarLocation.setSelection(adapter.getPosition(detailedCar.station!!.name))
+                spCarLocation.onItemSelectedListener=this@CarDetailActivity
+            }
+
+        })
 
         tvCarColor.text = detailedCar.color
-        tvCarModel.text = detailedCar.model
-        tvCarKm.text = detailedCar.currentKm.toString()
+        tvCarKm.text = (detailedCar.currentKm.toString()+" Km")
+        tvCarPrice.text = (detailedCar.price.toString()+" Ft/day")
+        tvCarLicencePlate.text = detailedCar.licencePlate
 
+        when(detailedCar.engineType){
+            EngineType.DIESEL.toString() -> ivCarDetailPic.setImageResource(R.mipmap.ic_disel)
+            EngineType.BENZINE.toString() -> ivCarDetailPic.setImageResource(R.mipmap.ic_benzine)
+            EngineType.ELECTRIC.toString() -> ivCarDetailPic.setImageResource(R.mipmap.ic_electric)
+        }
+    }
 
-       // btNewCar.setOnClickListener {
-       //     val newCarDialog = AddCarDialog()
-       //     newCarDialog.show(supportFragmentManager,"AddCarDialog")
-       // }
+    override fun onStart() {
+        super.onStart()
+    }
+
+    override fun onResume() {
+        super.onResume()
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -81,7 +140,46 @@ class CarDetailActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        Log.d("retrofit", (spCarState.selectedItem as State).toString())
-        val call = retroCarStatus.changeCarState(header,detailedCar.carId.toString(),(spCarState.selectedItem as State).toString())
+        Log.d("retrofit", spCarState.selectedItem.toString())
+        Log.d("retrofit",initSpinner.toString())
+        if(initSpinner<2) initSpinner++
+            else
+            when(parent){
+            spCarState -> {
+                Log.d("retrofit","reached")
+                val call = retroCarStatus.changeCarState(header,detailedCar.carId.toString(),spCarState.selectedItem.toString())
+                call.enqueue(object : Callback<Car> {
+                    override fun onResponse(call: Call<Car>, response: Response<Car>) {
+                        Log.d("retrofit","call succeeded")
+                        //Log.d("retrofit",response.code().toString())
+                        Log.d("retrofit",response.body()!!.state)
+                    }
+
+                    override fun onFailure(call: Call<Car>, t: Throwable) {
+                        Log.d("retrofit","call failed")
+                    }
+
+                })
+            }
+
+            spCarLocation -> {
+                val id = list_of_stations.get(position).stationId
+                val call = retroCarStatus.changeCarStation(header,detailedCar.carId.toString(),id.toString())
+                call.enqueue(object : Callback<Car> {
+                    override fun onResponse(call: Call<Car>, response: Response<Car>) {
+                        Log.d("retrofit","call succeeded")
+                        Log.d("retrofit", response.body()!!.station!!.name)
+                        Log.d("retrofit", response.message())
+                        Log.d("retrofit", response.code().toString())
+                    }
+
+                    override fun onFailure(call: Call<Car>, t: Throwable) {
+                        Log.d("retrofit","call failed")
+                    }
+
+                })
+            }
+            else -> Log.d("retrofit","szar")
+        }
     }
 }

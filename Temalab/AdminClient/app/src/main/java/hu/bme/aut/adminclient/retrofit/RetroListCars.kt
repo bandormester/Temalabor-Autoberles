@@ -3,6 +3,7 @@ package hu.bme.aut.adminclient.retrofit
 import hu.bme.aut.adminclient.model.Car
 import hu.bme.aut.adminclient.model.Costumer
 import hu.bme.aut.adminclient.model.EngineType
+import hu.bme.aut.adminclient.model.Station
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -27,4 +28,15 @@ interface RetroListCars {
                     @Query("stationId") stationId: Int
                     ) : Call<Void>
 
+    @GET("/info/values/car-states")
+    fun getCarStateValues() : Call<List<String>>
+
+    @GET("/stations")
+    fun getStations() : Call<List<Station>>
+
+
+    @POST("/cars/{carid}/change/station")
+    fun changeCarStation(@Header("Authorization") authHeader: String,
+                       @Path("carid") carid: String,
+                       @Query("stationId") newState: String) : Call<Car>
 }

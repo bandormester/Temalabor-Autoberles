@@ -10,4 +10,7 @@
     <string name="title_activity_navigation">NavigationActivity</string>
     <string name="title_cars">Cars</string>
     <string name="title_customers">Customers</string>
+    <string name="current_location">Current Location</string>
+    <string name="state">State</string>
+    <string name="station">Station</string>
 </resources>

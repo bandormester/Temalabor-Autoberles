@@ -41,6 +41,9 @@ class ListCarsFragment : Fragment(), CarAdapter.CarItemClickListener {
     ): View? {
         username = (activity as NavigationActivity).getUsername()//arguments!!.getString("username","")
         password = (activity as NavigationActivity).getPassword()//arguments!!.getString("password","")
+
+        Log.d("retrofit",username)
+        Log.d("retrofit",password)
         return inflater.inflate(R.layout.activity_list_cars, container, false)
     }
 
@@ -89,7 +92,7 @@ class ListCarsFragment : Fragment(), CarAdapter.CarItemClickListener {
                 var Cars = response.body()?: listOf<Car>()
                 setupRecyclerView(Cars)
 
-                Log.d("retrofit", Cars[1].model)
+
             }
         })
     }
@@ -106,9 +109,11 @@ class ListCarsFragment : Fragment(), CarAdapter.CarItemClickListener {
         val intent = Intent(activity, CarDetailActivity::class.java)
         //intent.putExtra(CarDetailActivity.CAR_ID, car.carId)
         //intent.putExtra(CarDetailActivity.CAR_MODEL, car.model)
+        Log.d("retrofit", username)
+        Log.d("retrofit", password)
         intent.putExtra(CarDetailActivity.USERNAME, username)
         intent.putExtra(CarDetailActivity.PASSWORD, password)
-        intent.putExtra(CarDetailActivity.DETAILED_CAR,car)
+        intent.putExtra(CarDetailActivity.DETAILED_CAR, car)
         startActivity(intent)
     }
 }
