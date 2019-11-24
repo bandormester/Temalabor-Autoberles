@@ -20,7 +20,7 @@ interface RetroListCars {
     fun registerCar(@Header("Authorization") authHeader: String,
                     @Query("licencePlate") licencePlate: String,
                     @Query("brand") brand: String,
-                    @Query("engineType") engineType: EngineType,
+                    @Query("engineType") engineType: String,
                     @Query("model") model: String,
                     @Query("color") color: String,
                     @Query("price") price: Int,

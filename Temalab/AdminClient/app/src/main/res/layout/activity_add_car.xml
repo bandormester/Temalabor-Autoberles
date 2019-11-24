@@ -4,13 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:label="@string/login"
-    tools:context=".fragment.ListUsersFragment">
+    tools:context=".AddCarActivity">
 
-    <TextView
+    <FrameLayout
+        android:id="@+id/flFragmentPlace"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/lvUsers"
-        android:text="asd"/>
+        android:layout_height="match_parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

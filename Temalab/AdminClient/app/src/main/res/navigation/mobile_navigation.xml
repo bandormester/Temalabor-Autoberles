@@ -17,4 +17,10 @@
         android:label="@string/title_customers"
         tools:layout="@layout/activity_list_users" />
 
+    <fragment
+        android:id="@+id/navigation_listrents"
+        android:name="hu.bme.aut.adminclient.fragment.ListRentsFragment"
+        android:label="@string/title_rents"
+        tools:layout="@layout/activity_list_users" />
+
 </navigation>

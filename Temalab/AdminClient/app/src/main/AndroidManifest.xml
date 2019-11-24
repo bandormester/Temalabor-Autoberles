@@ -11,21 +11,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".RentDetailActivity"></activity>
+        <activity android:name=".AddCarActivity" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyClcFl9MS1Gw7W2S-oIoyfzaohJ3BmnCLQ"/>
+            android:value="AIzaSyClcFl9MS1Gw7W2S-oIoyfzaohJ3BmnCLQ" />
+
+        <activity android:name=".NavigationActivity" />
         <activity
-            android:name=".NavigationActivity"
-            ></activity>
-        <activity android:name=".CarDetailActivity"
-            android:theme="@style/AppThemeBigText"/>
+            android:name=".CarDetailActivity"
+            android:theme="@style/AppThemeBigText" />
         <activity android:name=".fragment.ListCarsFragment" />
-        <activity
-            android:name=".CostumerDetailActivity"
- />
-        <activity
-            android:name=".fragment.ListUsersFragment"
-  />
+        <activity android:name=".CostumerDetailActivity" />
+        <activity android:name=".fragment.ListUsersFragment" />
         <activity
             android:name=".LoginActivity"
             android:noHistory="true">

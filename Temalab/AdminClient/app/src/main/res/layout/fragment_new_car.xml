@@ -1,73 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/etCarModel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="model"
-        android:inputType="text"
-        android:importantForAutofill="no" />
-    <EditText
-        android:id="@+id/etCarBrand"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="brand"
-        android:inputType="text"
-        android:importantForAutofill="no"/>
-    <EditText
-        android:id="@+id/etCarColor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="color"
-        android:inputType="text"
-        android:importantForAutofill="no"/>
-    <EditText
-        android:id="@+id/etCarPlate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="licence plate"
-        android:inputType="text"
-        android:importantForAutofill="no"/>
-    <EditText
-        android:id="@+id/etCarPrice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="price"
-        android:text="0"
-        android:inputType="number"
-        android:importantForAutofill="no"/>
-    <EditText
-        android:id="@+id/etCarKm"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Km"
-        android:text="0"
-        android:inputType="number"
-        android:importantForAutofill="no"/>
-    <EditText
-        android:id="@+id/etCarStation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="station id"
-        android:text="0"
-        android:inputType="number"
-        android:importantForAutofill="no"/>
+    <ImageView
+        android:layout_marginTop="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/spCarEngine"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="30dp"
+        android:id="@+id/ivAddCarPic"
+        android:layout_width="120dp"
+        android:layout_height="120dp"/>
+    <TextView
+        android:id="@+id/tvCarEngineType"
+        android:text="@string/engine_type"
+        app:layout_constraintBottom_toBottomOf="@id/spCarEngine"
+        app:layout_constraintEnd_toStartOf="@id/spCarEngine"
+        app:layout_constraintTop_toTopOf="@id/spCarEngine"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:gravity="center"/>
 
     <Spinner
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btAccept"
+        android:layout_margin="30dp"
         android:id="@+id/spCarEngine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+
+    <EditText
+        app:layout_constraintTop_toBottomOf="@id/spCarEngine"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="30dp"
+        android:id="@+id/etCarModel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/car_model"
+        android:inputType="text"
+        android:gravity="center"
+        android:importantForAutofill="no" />
+    <EditText
+        android:id="@+id/etCarBrand"
+        app:layout_constraintTop_toBottomOf="@id/etCarModel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/car_brand"
+        android:inputType="text"
+        android:gravity="center"
+        android:importantForAutofill="no"/>
+
     <Button
+        app:layout_constraintTop_toBottomOf="@id/etCarBrand"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btCancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="30dp"
         android:id="@+id/btAccept"
-        android:text="Accept"
-        android:layout_width="match_parent"
+        android:text="@string/accept"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <Button
+        app:layout_constraintTop_toTopOf="@id/btAccept"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btAccept"
         android:id="@+id/btCancel"
-        android:text="Cancel"
-        android:layout_width="match_parent"
+        android:text="@string/cancel"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
-</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

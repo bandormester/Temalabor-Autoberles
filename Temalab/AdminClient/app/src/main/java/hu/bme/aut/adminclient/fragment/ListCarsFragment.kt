@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import com.google.gson.GsonBuilder
+import hu.bme.aut.adminclient.AddCarActivity
 import hu.bme.aut.adminclient.CarDetailActivity
 import hu.bme.aut.adminclient.NavigationActivity
 import hu.bme.aut.adminclient.R
@@ -54,9 +55,14 @@ class ListCarsFragment : Fragment(), CarAdapter.CarItemClickListener {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-            val newCarDialog = AddCarDialog()
+            /*val newCarDialog = AddCarDialog()
             newCarDialog.show(activity!!.supportFragmentManager,"AddCarDialog")
-
+*/
+        val intent = Intent()
+        intent.setClass(activity!!.baseContext, AddCarActivity::class.java)
+        intent.putExtra("username", username)
+        intent.putExtra("password", password)
+        startActivity(intent)
 
         return super.onOptionsItemSelected(item)
     }

@@ -13,4 +13,17 @@
     <string name="current_location">Current Location</string>
     <string name="state">State</string>
     <string name="station">Station</string>
+    <string name="car_model">Car model</string>
+    <string name="car_brand">Car brand</string>
+    <string name="accept">Accept</string>
+    <string name="cancel">Cancel</string>
+    <string name="engine_type">Engine type </string>
+    <string name="car_licence_plate">Car licence plate</string>
+    <string name="car_color">Car color</string>
+    <string name="car_km">Car KM</string>
+    <string name="car_price">Car price</string>
+    <string name="back">Back</string>
+    <string name="create">Create</string>
+    <string name="title_rents">Rents</string>
+    <string name="close_rent">Close rent</string>
 </resources>

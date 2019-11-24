@@ -3,13 +3,17 @@
 
     <item
         android:id="@+id/navigation_listcars"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@mipmap/ic_car"
         android:title="@string/title_cars" />
 
     <item
         android:id="@+id/navigation_listusers"
-        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:icon="@mipmap/ic_user"
         android:title="@string/title_customers" />
 
+    <item
+        android:id="@+id/navigation_listrents"
+        android:icon="@mipmap/ic_rent"
+        android:title="@string/title_rents"/>
 
 </menu>
