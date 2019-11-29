@@ -1,12 +1,12 @@
 package hu.bme.aut.adminclient.adapter
 
 import android.content.Context
+import android.graphics.Color
 import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -16,11 +16,8 @@ import com.bumptech.glide.load.model.LazyHeaders
 import com.bumptech.glide.request.RequestOptions
 import hu.bme.aut.adminclient.R
 import hu.bme.aut.adminclient.model.Costumer
-import kotlinx.android.synthetic.main.activity_costumer_detail.*
 import kotlinx.android.synthetic.main.costumer_row.view.*
 import kotlinx.android.synthetic.main.costumer_row.view.ivProfilePic
-import java.io.File
-import javax.xml.transform.Templates
 
 class CostumerAdapter : RecyclerView.Adapter<CostumerAdapter.CostumerHolder>() {
 
@@ -32,7 +29,6 @@ class CostumerAdapter : RecyclerView.Adapter<CostumerAdapter.CostumerHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CostumerHolder {
-        Log.d("recview","on create view holder")
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.costumer_row, parent, false)
         context=parent.context
@@ -42,7 +38,6 @@ class CostumerAdapter : RecyclerView.Adapter<CostumerAdapter.CostumerHolder>() {
 
 
      fun addItem(item : Costumer) {
-         Log.d("recview","add-item")
          val size = costumerList.size
         costumerList.add(item)
         notifyItemInserted(size)
@@ -56,9 +51,7 @@ class CostumerAdapter : RecyclerView.Adapter<CostumerAdapter.CostumerHolder>() {
 
     fun addAll(costumers : List<Costumer>){
         val size = costumerList.size
-        Log.d("recview",costumers[2].firstName)
         costumerList += costumers
-        Log.d("recview",costumerList[3].firstName)
         notifyItemRangeChanged(size, costumers.size)
     }
 
@@ -68,11 +61,11 @@ class CostumerAdapter : RecyclerView.Adapter<CostumerAdapter.CostumerHolder>() {
 
     override fun onBindViewHolder(holder: CostumerHolder, position: Int) {
        val costumer = costumerList[position]
-
         holder.costumer = costumer
-
         holder.tvFirstName.text = costumer.firstName
         holder.tvLastName.text = costumer.lastName
+
+        //TODO
 
         val loginDetails="admin:admin"
         val authHeader = "Basic " + Base64.encodeToString(loginDetails.toByteArray(), Base64.NO_WRAP)
@@ -83,22 +76,18 @@ class CostumerAdapter : RecyclerView.Adapter<CostumerAdapter.CostumerHolder>() {
         val options = RequestOptions()
             .diskCacheStrategy(DiskCacheStrategy.NONE)
 
-       // Glide.with(context)
-       //     .load(url)
-       //     .apply(options)
-       //     .into(holder.ivProfilePic)
+        Glide.with(context)
+           .load(url)
+            .apply(options)
+            .into(holder.ivProfilePic)
 
-        holder.ivProfilePic.setImageResource(R.drawable.ic_launcher_background)
-        //TODO  asdasd
-
-        Log.d("recview",holder.tvFirstName.text.toString())
-        Log.d("recview",holder.tvLastName.text.toString())
+        if(position%2==0)holder.rowCostBg.setBackgroundColor(Color.rgb(240,240,240))
     }
 
     inner class CostumerHolder(costumerView : View) : RecyclerView.ViewHolder(costumerView) {
         val tvFirstName: TextView = costumerView.tvFirstName
         val tvLastName: TextView = costumerView.tvLastName
-
+        val rowCostBg = costumerView.layoutCostumerRow
         val ivProfilePic = costumerView.ivProfilePic
 
         var costumer : Costumer? = null

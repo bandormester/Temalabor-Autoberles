@@ -104,7 +104,8 @@
         app:layout_constraintBottom_toTopOf="@id/mvCarMap"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
-    <com.google.android.gms.maps.MapView
+    <fragment
+        class="com.google.android.gms.maps.SupportMapFragment"
         android:id="@+id/mvCarMap"
         android:layout_width="match_parent"
         android:layout_height="0dp"

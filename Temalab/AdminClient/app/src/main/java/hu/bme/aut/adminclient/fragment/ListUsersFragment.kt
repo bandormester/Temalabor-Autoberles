@@ -28,7 +28,6 @@ class ListUsersFragment : Fragment(), CostumerAdapter.CostumerItemClickListener 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //setContentView(R.layout.activity_list_users)
     }
 
     override fun onCreateView(
@@ -59,8 +58,6 @@ class ListUsersFragment : Fragment(), CostumerAdapter.CostumerItemClickListener 
 
         val retroListUsers = retrofit.create(RetroListUsers::class.java)
 
-        // username = intent.getStringExtra("username")?:""
-         //password = intent.getStringExtra("password")?:""
         val loginDetails = "$username:$password"
 
         val header : String = "Basic " + Base64.encodeToString(loginDetails.toByteArray(), Base64.NO_WRAP)

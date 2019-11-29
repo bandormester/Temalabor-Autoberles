@@ -28,7 +28,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 class AddCarDialog : Fragment() {
 
     lateinit var myView: View
-    lateinit var retroCarStatus: RetroListCars
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,19 +40,6 @@ class AddCarDialog : Fragment() {
 
     override fun onStart() {
         super.onStart()
-
-
-        val gson = GsonBuilder().setLenient().create()
-        val builder : Retrofit.Builder = Retrofit.Builder()
-            .baseUrl("http://ec2-3-14-28-216.us-east-2.compute.amazonaws.com")
-            .addConverterFactory(GsonConverterFactory.create(gson))
-        val retrofit : Retrofit = builder.build()
-        retroCarStatus = retrofit.create(RetroListCars::class.java)
-
-        val username = activity!!.intent.getStringExtra(CostumerDetailActivity.USER_NAME)
-        val password = activity!!.intent.getStringExtra(CostumerDetailActivity.USER_PASS)
-        val loginDetails = "$username:$password"
-        val header = "Basic " + Base64.encodeToString(loginDetails.toByteArray(), Base64.NO_WRAP)
 
         val list_of_items = arrayOf(EngineType.ELECTRIC, EngineType.BENZINE, EngineType.DIESEL)
         val adapter = ArrayAdapter(activity!!.baseContext, android.R.layout.simple_spinner_item, list_of_items)

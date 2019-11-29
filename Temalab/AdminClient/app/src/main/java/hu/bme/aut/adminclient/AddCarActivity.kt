@@ -45,12 +45,11 @@ class AddCarActivity : FragmentActivity() {
         val loginDetails = "$username:$password"
         val header = "Basic " + Base64.encodeToString(loginDetails.toByteArray(), Base64.NO_WRAP)
 
-        val call = retroCarStatus.registerCar(header,newCar.licencePlate,newCar.brand,newCar.engineType, newCar.model, newCar.color, newCar.price, newCar.currentKm, 1)
+        val call = retroCarStatus.registerCar(header,newCar.licencePlate,newCar.brand,newCar.engineType, newCar.model, newCar.color, newCar.price, newCar.currentKm, newCar.station!!.stationId)
 
         call.enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 Log.d("retrofit","creating succeeded")
-                Log.d("retrofit",response.code().toString())
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
@@ -60,12 +59,12 @@ class AddCarActivity : FragmentActivity() {
     })
     }
 
-    public fun passInfos(color : String, licencePlate : String, km : String, price : String) {
+    public fun passInfos(color : String, licencePlate : String, km : String, price : String, stationId : Int) {
         newCar.color = color
         newCar.licencePlate = licencePlate
         newCar.currentKm = Integer.parseInt(km)
         newCar.price = Integer.parseInt(price)
-        newCar.station!!.stationId = 1
+        newCar.station!!.stationId = stationId
     }
 
     public fun passDefaults(engType : String, model : String, brand : String){

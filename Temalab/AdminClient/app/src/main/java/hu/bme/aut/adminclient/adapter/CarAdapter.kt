@@ -1,6 +1,8 @@
 package hu.bme.aut.adminclient.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
 import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -59,9 +62,7 @@ class CarAdapter : RecyclerView.Adapter<CarAdapter.CarHolder>() {
 
     fun addAll(cars : List<Car>){
         val size = carList.size
-        Log.d("recview",cars[2].model)
         carList += cars
-        //Log.d("recview",carList[3].model)
         notifyItemRangeChanged(size, cars.size)
     }
 
@@ -78,30 +79,25 @@ class CarAdapter : RecyclerView.Adapter<CarAdapter.CarHolder>() {
         holder.tvCarColor.text = car.color
         holder.tvCarKm.text = (car.currentKm.toString() + " Km")
 
-        Log.d("retrocar","- " + car.carId+" : "+car.engineType?:"Null")
-
         when(car.engineType?:EngineType.DIESEL){
             EngineType.DIESEL.toString() -> holder.ivEnginePic.setImageResource(R.mipmap.ic_disel)
             EngineType.ELECTRIC.toString() -> holder.ivEnginePic.setImageResource(R.mipmap.ic_electric)
             EngineType.BENZINE.toString() -> holder.ivEnginePic.setImageResource(R.mipmap.ic_benzine)
             else->holder.ivEnginePic.setImageResource(R.drawable.ic_launcher_background)
         }
-
-        Log.d("recview",holder.tvCarModel.text.toString())
-        Log.d("recview",holder.tvCarColor.text.toString())
+        if(position%2==0)holder.rowCarBg.setBackgroundColor(Color.rgb(240,240,240))
     }
 
     inner class CarHolder(carView : View) : RecyclerView.ViewHolder(carView) {
         val tvCarModel: TextView = carView.tvCarModel
         val tvCarColor: TextView = carView.tvCarColor
         val tvCarKm: TextView = carView.tvKilometer
-
+        val rowCarBg: ConstraintLayout = carView.layoutCarRow
         val ivEnginePic = carView.ivEnginePic
 
         var car : Car? = null
         init{
             carView.setOnClickListener{
-                Log.d("detview","item clicked")
                 car?.let{itemClickListener?.onCarSelected(it)}
             }
         }

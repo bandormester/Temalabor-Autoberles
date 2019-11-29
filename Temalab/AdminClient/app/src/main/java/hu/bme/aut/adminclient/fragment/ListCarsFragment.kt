@@ -40,9 +40,8 @@ class ListCarsFragment : Fragment(), CarAdapter.CarItemClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        username = (activity as NavigationActivity).getUsername()//arguments!!.getString("username","")
-        password = (activity as NavigationActivity).getPassword()//arguments!!.getString("password","")
-
+        username = (activity as NavigationActivity).getUsername()
+        password = (activity as NavigationActivity).getPassword()
         Log.d("retrofit",username)
         Log.d("retrofit",password)
         return inflater.inflate(R.layout.activity_list_cars, container, false)
@@ -55,9 +54,6 @@ class ListCarsFragment : Fragment(), CarAdapter.CarItemClickListener {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-            /*val newCarDialog = AddCarDialog()
-            newCarDialog.show(activity!!.supportFragmentManager,"AddCarDialog")
-*/
         val intent = Intent()
         intent.setClass(activity!!.baseContext, AddCarActivity::class.java)
         intent.putExtra("username", username)
@@ -79,8 +75,6 @@ class ListCarsFragment : Fragment(), CarAdapter.CarItemClickListener {
             .addConverterFactory(GsonConverterFactory.create(gson))
         val retrofit : Retrofit = builder.build()
         val retroListCars = retrofit.create(RetroListCars::class.java)
-       // username = // intent.getStringExtra("username")?:""
-        //password = "admin" // intent.getStringExtra("password")?:""
         val loginDetails = "$username:$password"
         val header : String = "Basic " + Base64.encodeToString(loginDetails.toByteArray(), Base64.NO_WRAP)
         val call = retroListCars.getCarList(header)
@@ -113,8 +107,6 @@ class ListCarsFragment : Fragment(), CarAdapter.CarItemClickListener {
     override fun onCarSelected(car: Car) {
         Log.d("detview","car clicked")
         val intent = Intent(activity, CarDetailActivity::class.java)
-        //intent.putExtra(CarDetailActivity.CAR_ID, car.carId)
-        //intent.putExtra(CarDetailActivity.CAR_MODEL, car.model)
         Log.d("retrofit", username)
         Log.d("retrofit", password)
         intent.putExtra(CarDetailActivity.USERNAME, username)

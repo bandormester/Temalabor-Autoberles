@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="100dp">
+    android:layout_height="wrap_content"
+    android:id="@+id/layoutRentRow">
 
     <TextView
         android:gravity="center"
@@ -43,6 +44,7 @@
 
     <TextView
         android:gravity="center"
+        android:textStyle="bold"
         android:text="Actual"
         app:layout_constraintTop_toTopOf="@id/tvActualText"
         app:layout_constraintStart_toEndOf="@id/tvRentPlannedEnd"
@@ -50,6 +52,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>
     <TextView
+        android:textStyle="bold"
         android:id="@+id/tvActualText"
         android:text="Planned"
         android:gravity="center"

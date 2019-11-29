@@ -15,4 +15,7 @@ interface RetroListRents {
     @POST("/rents/{rentid}/accept")
     fun closeRent(@Header("Authorization") authHeader : String,
                   @Path("rentid") rentId : String) : Call<Void>
+
+    @GET("/rents/unclosed")//TODO
+    fun getActiveList(@Header("Authorization") authHeader : String) : Call<List<Rent>>
 }

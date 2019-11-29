@@ -32,9 +32,6 @@ class LoginActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        //setSupportActionBar(toolbar)
-
         title = "Log in"
 
         relativelayout.setOnTouchListener { v, event ->
@@ -67,12 +64,9 @@ class LoginActivity : AppCompatActivity(){
 
             call.enqueue(object : Callback<String>{
                 override fun onResponse(call: Call<String>?, response: Response<String>?){
-                    Log.d("retrofit","call succeeded")
-
                     when(response?.code()){
                         200 -> {
                             Log.d("retrofit","Login Successful")
-                            Log.d("retrofit",response.toString())
 
                             val myIntent : Intent = Intent()
                             myIntent.setClass(this@LoginActivity, NavigationActivity::class.java)
@@ -81,17 +75,13 @@ class LoginActivity : AppCompatActivity(){
                             startActivity(myIntent)
                         }
                         else -> {
-                            //Toast.makeText(this@LoginActivity,"Login failed",Toast.LENGTH_LONG).show()
                             Log.d("retrofit","Login failed")
-                            Log.d("retrofit",response.toString())
                         }
                     }
                 }
 
                 override fun onFailure(call: Call<String>?, t: Throwable) {
-                    //Toast.makeText(this@LoginActivity,     t.message,Toast.LENGTH_LONG).show
                     Log.d("retrofit", "call failed")
-                    Log.d("retrofit",t.message)
                 }
             })
 

@@ -14,6 +14,7 @@ import android.widget.TextView
 import android.widget.Toolbar
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.gson.GsonBuilder
 import hu.bme.aut.adminclient.fragment.AddCarDialog
 import hu.bme.aut.adminclient.model.Car
@@ -36,7 +37,8 @@ class CarDetailActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
     override fun onMapReady(p0: GoogleMap) {
         mMap = p0
 
-        val sy = LatLng(-34.0,151.0)
+        val sy = LatLng(detailedCar.station!!.latitude,detailedCar.station!!.longitude)
+        mMap.addMarker(MarkerOptions().position(sy).title(detailedCar.station!!.name))
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sy))
     }
 
@@ -58,8 +60,9 @@ class CarDetailActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_car_detail)
 
-        mvCarMap.onCreate(savedInstanceState)
-        mvCarMap.getMapAsync(this)
+        val mapFragment = supportFragmentManager
+            .findFragmentById(R.id.mvCarMap) as SupportMapFragment
+        mapFragment.getMapAsync(this)
 
         detailedCar  = intent.getSerializableExtra(DETAILED_CAR) as Car
         title = detailedCar.brand+" "+detailedCar.model

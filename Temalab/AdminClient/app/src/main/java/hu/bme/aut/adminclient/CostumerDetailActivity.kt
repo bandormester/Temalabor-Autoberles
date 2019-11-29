@@ -79,7 +79,6 @@ class CostumerDetailActivity : AppCompatActivity() {
         val licenceBackUrl =
             "http://ec2-3-14-28-216.us-east-2.compute.amazonaws.com/customers/$detailedCostumerID/driving-licence-back"
         val backGlideUrl = GlideUrl(licenceBackUrl, LazyHeaders.Builder().addHeader("Authorization",header).build())
-        //val url = GlideUrl("https://upload.wikimedia.org/wikipedia/commons/3/3f/JPEG_example_flower.jpg", LazyHeaders.Builder().addHeader("Authorization",header).build())
 
          val options = RequestOptions()
             .diskCacheStrategy(DiskCacheStrategy.NONE)

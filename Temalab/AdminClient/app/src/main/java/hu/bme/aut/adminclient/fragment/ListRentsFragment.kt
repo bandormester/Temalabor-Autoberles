@@ -4,16 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
 import com.google.gson.GsonBuilder
-import hu.bme.aut.adminclient.CarDetailActivity
-import hu.bme.aut.adminclient.NavigationActivity
-import hu.bme.aut.adminclient.R
-import hu.bme.aut.adminclient.RentDetailActivity
+import hu.bme.aut.adminclient.*
 import hu.bme.aut.adminclient.adapter.RentAdapter
 import hu.bme.aut.adminclient.model.Car
 import hu.bme.aut.adminclient.model.Rent
@@ -30,18 +25,72 @@ import retrofit2.converter.gson.GsonConverterFactory
 class ListRentsFragment : Fragment(), RentAdapter.RentItemClickListener{
 
 
+    private lateinit var retroListRents : RetroListRents
     private lateinit var rentAdapter: RentAdapter
+    private lateinit var header: String
+    private  var activeList: Boolean = false
+    private var menu : Menu? = null
 
     lateinit var username : String
     lateinit var password : String
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        super.onCreateOptionsMenu(menu, inflater)
+        this.menu = menu
+
+        inflater!!.inflate(R.menu.rent_change,menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        activeList = !activeList
+        if(activeList){
+            menu?.findItem(R.id.miSwitchRent)?.setTitle("Unclosed")
+            val call = retroListRents.getUserList(header)
+
+            call.enqueue(object : Callback<List<Rent>>{
+                override fun onFailure(call: Call<List<Rent>>, t: Throwable) {
+                    Log.d("retrofit", "Listing failed")
+                }
+
+                override fun onResponse(call: Call<List<Rent>>, response: Response<List<Rent>>) {
+                    Log.d("retrofit", "Listing succeeded")
+                    val rents = response.body()?: mutableListOf<Rent>()
+                    setupRecyclerView(rents)
+                }
+
+            })
+        }else{
+            menu?.findItem(R.id.miSwitchRent)?.setTitle("Active")
+            val call = retroListRents.getUserList(header)
+
+            call.enqueue(object : Callback<List<Rent>>{
+                override fun onFailure(call: Call<List<Rent>>, t: Throwable) {
+                    Log.d("retrofit", "Listing failed")
+                }
+
+                override fun onResponse(call: Call<List<Rent>>, response: Response<List<Rent>>) {
+                    Log.d("retrofit", "Listing succeeded")
+                    val rents = response.body()?: mutableListOf<Rent>()
+                    setupRecyclerView(rents)
+                }
+
+            })
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        username = (activity as NavigationActivity).getUsername()//arguments!!.getString("username","")
-        password = (activity as NavigationActivity).getPassword()//arguments!!.getString("password","")
+        username = (activity as NavigationActivity).getUsername()
+        password = (activity as NavigationActivity).getPassword()
 
         return inflater.inflate(R.layout.fragment_list_rents, container, false)
     }
@@ -57,11 +106,9 @@ class ListRentsFragment : Fragment(), RentAdapter.RentItemClickListener{
             .baseUrl("http://ec2-3-14-28-216.us-east-2.compute.amazonaws.com")
             .addConverterFactory(GsonConverterFactory.create(gson))
         val retrofit : Retrofit = builder.build()
-        val retroListRents = retrofit.create(RetroListRents::class.java)
-        // username = // intent.getStringExtra("username")?:""
-        //password = "admin" // intent.getStringExtra("password")?:""
+        retroListRents = retrofit.create(RetroListRents::class.java)
         val loginDetails = "$username:$password"
-        val header : String = "Basic " + Base64.encodeToString(loginDetails.toByteArray(), Base64.NO_WRAP)
+        header = "Basic " + Base64.encodeToString(loginDetails.toByteArray(), Base64.NO_WRAP)
         val call = retroListRents.getUserList(header)
 
         call.enqueue(object : Callback<List<Rent>>{
@@ -80,6 +127,7 @@ class ListRentsFragment : Fragment(), RentAdapter.RentItemClickListener{
 
     private fun setupRecyclerView(rentList : List<Rent>) {
         rentAdapter.itemClickListener = this
+        rentAdapter.wipe()
         rentAdapter.addAll(rentList)
         RecyclerViewRents.adapter = rentAdapter
     }

@@ -84,7 +84,6 @@ class RentDetailActivity : AppCompatActivity() {
 
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     Log.d("retrofit",response.code().toString())
-                    Log.d("retrofit",response.message())
                 }
 
             })

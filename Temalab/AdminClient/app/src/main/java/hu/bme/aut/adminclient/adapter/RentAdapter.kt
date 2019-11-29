@@ -1,11 +1,14 @@
 package hu.bme.aut.adminclient.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import hu.bme.aut.adminclient.R
 import hu.bme.aut.adminclient.model.Rent
@@ -40,12 +43,19 @@ class RentAdapter : RecyclerView.Adapter<RentAdapter.RentHolder>(){
         holder.tvRentPlannedEnd.text = rent.plannedEndTime
         holder.tvStartStation.append(rent.startStationId.toString())
         holder.tvEndStation.append(rent.endStationId.toString())
+        if(position%2==0)holder.rentRowBg.setBackgroundColor(Color.rgb(240,240,240))
     }
 
     fun addAll(rent : List<Rent>){
         val size = rentList.size
         rentList+=rent
         notifyItemRangeChanged(size, rent.size)
+    }
+
+    fun wipe(){
+        val size = rentList.size
+        rentList.clear()
+        notifyItemRangeChanged(size, 0)
     }
 
 
@@ -56,6 +66,7 @@ class RentAdapter : RecyclerView.Adapter<RentAdapter.RentHolder>(){
         val tvRentPlannedEnd: TextView = rentView.tvRentPlannedEnd
         val tvStartStation: TextView = rentView.tvRentStartStation
         val tvEndStation: TextView = rentView.tvRendEndStation
+        val rentRowBg: ConstraintLayout = rentView.layoutRentRow
 
         var rent : Rent? = null
         init{
