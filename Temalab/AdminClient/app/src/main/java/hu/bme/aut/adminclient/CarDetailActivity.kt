@@ -67,6 +67,7 @@ class CarDetailActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
         detailedCar  = intent.getSerializableExtra(DETAILED_CAR) as Car
         title = detailedCar.brand+" "+detailedCar.model
 
+        Log.d("retrofit",detailedCar.station!!.name)
 
         val gson = GsonBuilder().setLenient().create()
         val builder : Retrofit.Builder = Retrofit.Builder()

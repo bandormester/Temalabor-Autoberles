@@ -8,11 +8,15 @@ class Rent : Serializable{
     var plannedStartTime : String = ""
     var plannedEndTime : String = ""
     var startStationId : Int = 0
+    var startStationName : String = ""
     var endStationId : Int = 0
-    var actualStartTime : String = ""
-    var actualEndTime : String = ""
-    var state : String = State.RENTABLE.toString()
+    var endStationName : String = ""
+    var actualStartTime : String? = ""
+    var actualEndTime : String? = ""
+    var state : String = State.RENTED.toString()
     var mine : Boolean = false
     var imageIdsBefore : MutableList<Int> = mutableListOf()
     var imageIdsAfter : MutableList<Int> = mutableListOf()
+    var positionReportRequested : Boolean = false
+    var positions : MutableList<CarPosition> = mutableListOf()
 }

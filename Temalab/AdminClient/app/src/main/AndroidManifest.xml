@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="hu.bme.aut.adminclient">
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -17,7 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".ActiveRentDetailActivity"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -32,19 +31,34 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
-        <activity android:name=".RentDetailActivity" />
-        <activity android:name=".AddCarActivity" />
-        <activity android:name=".NavigationActivity" />
+            android:label="@string/title_activity_maps"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RentDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AddCarActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".NavigationActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".CarDetailActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppThemeBigText" />
-        <activity android:name=".fragment.ListCarsFragment" />
-        <activity android:name=".CostumerDetailActivity" />
-        <activity android:name=".fragment.ListUsersFragment" />
+        <activity
+            android:name=".fragment.ListCarsFragment"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CostumerDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".fragment.ListUsersFragment"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".LoginActivity"
-            android:noHistory="true">
+            android:noHistory="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

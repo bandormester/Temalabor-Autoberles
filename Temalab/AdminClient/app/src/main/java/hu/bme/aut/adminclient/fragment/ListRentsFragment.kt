@@ -50,27 +50,30 @@ class ListRentsFragment : Fragment(), RentAdapter.RentItemClickListener{
         activeList = !activeList
         if(activeList){
             menu?.findItem(R.id.miSwitchRent)?.setTitle("Unclosed")
-            val call = retroListRents.getUserList(header)
-
+            val call = retroListRents.getActiveList(header)
+            activity!!.setTitle("Active rents")
             call.enqueue(object : Callback<List<Rent>>{
                 override fun onFailure(call: Call<List<Rent>>, t: Throwable) {
                     Log.d("retrofit", "Listing failed")
+                    Log.d("retrofit", t.message)
                 }
 
                 override fun onResponse(call: Call<List<Rent>>, response: Response<List<Rent>>) {
                     Log.d("retrofit", "Listing succeeded")
                     val rents = response.body()?: mutableListOf<Rent>()
-                    setupRecyclerView(rents)
+                    setupActiveRecyclerView(rents)
                 }
 
             })
         }else{
             menu?.findItem(R.id.miSwitchRent)?.setTitle("Active")
             val call = retroListRents.getUserList(header)
+            activity!!.setTitle("Unclosed rents")
 
             call.enqueue(object : Callback<List<Rent>>{
                 override fun onFailure(call: Call<List<Rent>>, t: Throwable) {
                     Log.d("retrofit", "Listing failed")
+                    Log.d("retrofit", t.message)
                 }
 
                 override fun onResponse(call: Call<List<Rent>>, response: Response<List<Rent>>) {
@@ -97,6 +100,7 @@ class ListRentsFragment : Fragment(), RentAdapter.RentItemClickListener{
 
     override fun onStart() {
         super.onStart()
+
 
         rentAdapter = RentAdapter()
         RecyclerViewRents.adapter = rentAdapter
@@ -127,6 +131,22 @@ class ListRentsFragment : Fragment(), RentAdapter.RentItemClickListener{
 
     private fun setupRecyclerView(rentList : List<Rent>) {
         rentAdapter.itemClickListener = this
+        rentAdapter.wipe()
+        rentAdapter.addAll(rentList)
+        RecyclerViewRents.adapter = rentAdapter
+    }
+
+    private fun setupActiveRecyclerView(rentList : List<Rent>) {
+        rentAdapter.itemClickListener = object : RentAdapter.RentItemClickListener{
+            override fun onRentSelected(rent: Rent) {
+                val intent = Intent(activity, ActiveRentDetailActivity::class.java)
+                intent.putExtra("username", username)
+                intent.putExtra("password", password)
+                intent.putExtra("rent", rent)
+                startActivity(intent)
+            }
+
+        }
         rentAdapter.wipe()
         rentAdapter.addAll(rentList)
         RecyclerViewRents.adapter = rentAdapter
