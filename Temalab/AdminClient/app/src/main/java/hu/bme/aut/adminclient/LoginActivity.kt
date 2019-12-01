@@ -76,6 +76,7 @@ class LoginActivity : AppCompatActivity(){
                         }
                         else -> {
                             Log.d("retrofit","Login failed")
+                            Toast.makeText(this@LoginActivity,"Wrong username or password",Toast.LENGTH_LONG).show()
                         }
                     }
                 }
