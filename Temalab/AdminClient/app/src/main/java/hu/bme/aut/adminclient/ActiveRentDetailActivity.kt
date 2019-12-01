@@ -77,13 +77,14 @@ class ActiveRentDetailActivity : AppCompatActivity(), OnMapReadyCallback {
             val call = retroListRents.requestPosition(header, rent.rentId.toString())
             Log.d("retrofit",rent.rentId.toString())
 
-            call.enqueue(object : Callback<Boolean?>{
-                override fun onResponse(call: Call<Boolean?>, response: Response<Boolean?>) {
+            call.enqueue(object : Callback<Void>{
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     Log.d("retrofit", response.code().toString())
                 }
 
-                override fun onFailure(call: Call<Boolean?>, t: Throwable) {
+                override fun onFailure(call: Call<Void>, t: Throwable) {
                     Log.d("retrofit", t.message)
+                    Log.d("retrofit",t.localizedMessage)
                     Log.d("retrofit",t.cause.toString())
                 }
 

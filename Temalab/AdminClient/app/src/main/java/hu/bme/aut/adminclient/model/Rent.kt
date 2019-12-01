@@ -13,7 +13,7 @@ class Rent : Serializable{
     var endStationName : String = ""
     var actualStartTime : String? = ""
     var actualEndTime : String? = ""
-    var state : String = State.RENTED.toString()
+    var state : String = ""
     var mine : Boolean = false
     var imageIdsBefore : MutableList<Int> = mutableListOf()
     var imageIdsAfter : MutableList<Int> = mutableListOf()

@@ -21,5 +21,5 @@ interface RetroListRents {
 
     @POST("/rents/{rentid}/request-position")
     fun requestPosition(@Header("Authorization") authHeader : String,
-                        @Path("rentid") rentId : String) : Call<Boolean?>
+                        @Path("rentid") rentId : String) : Call<Void>
 }

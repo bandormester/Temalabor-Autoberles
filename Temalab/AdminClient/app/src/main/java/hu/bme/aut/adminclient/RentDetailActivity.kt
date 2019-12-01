@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
+import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.model.GlideUrl
@@ -24,6 +25,8 @@ import javax.xml.transform.Templates
 class RentDetailActivity : AppCompatActivity() {
 
     private lateinit var header : String
+    private var currentBefore : Int = 0
+    private var currentAfter : Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +46,7 @@ class RentDetailActivity : AppCompatActivity() {
         tvRendEndStation.append(rent.endStationId.toString())
 
         if(rent.imageIdsAfter.size!=0){
+            currentAfter = 0
             val pictureUrl =
                 "http://ec2-3-14-28-216.us-east-2.compute.amazonaws.com/images/"+rent.imageIdsAfter[0].toString()
             val glideUrl = GlideUrl(pictureUrl, LazyHeaders.Builder().addHeader("Authorization",header).build())
@@ -53,9 +57,29 @@ class RentDetailActivity : AppCompatActivity() {
                 .load(glideUrl)
                 .apply(option)
                 .into(ivRentAfter)
+
+            ivRentAfter.setOnClickListener(object : View.OnClickListener{
+                override fun onClick(v: View?) {
+                    currentAfter++
+                    if(currentAfter == rent.imageIdsAfter.size) currentAfter = 0
+
+                    val pictureUrlAfter =
+                        "http://ec2-3-14-28-216.us-east-2.compute.amazonaws.com/images/"+rent.imageIdsAfter[currentAfter].toString()
+                    val glideUrlAfter = GlideUrl(pictureUrlAfter, LazyHeaders.Builder().addHeader("Authorization",header).build())
+
+
+                    Glide.with(this@RentDetailActivity)
+                        .load(glideUrlAfter)
+                        .apply(option)
+                        .into(ivRentAfter)
+                }
+
+            })
+
         } else Log.d("retrofit", rent.imageIdsAfter.size.toString())
 
         if(rent.imageIdsBefore.size!=0){
+            currentBefore=0
             val pictureUrl =
                 "http://ec2-3-14-28-216.us-east-2.compute.amazonaws.com/images/"+rent.imageIdsBefore[0].toString()
             val glideUrl = GlideUrl(pictureUrl, LazyHeaders.Builder().addHeader("Authorization",header).build())
@@ -66,6 +90,26 @@ class RentDetailActivity : AppCompatActivity() {
                 .load(glideUrl)
                 .apply(option)
                 .into(ivRentBefore)
+
+            ivRentBefore.setOnClickListener(object : View.OnClickListener{
+                override fun onClick(v: View?) {
+                    currentBefore++
+                    if(currentBefore == rent.imageIdsBefore.size) currentBefore = 0
+
+                    val pictureUrlBefore =
+                        "http://ec2-3-14-28-216.us-east-2.compute.amazonaws.com/images/"+rent.imageIdsBefore[currentBefore].toString()
+                    val glideUrlBefore = GlideUrl(pictureUrlBefore, LazyHeaders.Builder().addHeader("Authorization",header).build())
+
+
+                    Glide.with(this@RentDetailActivity)
+                        .load(glideUrlBefore)
+                        .apply(option)
+                        .into(ivRentBefore)
+                }
+
+            })
+
+
         } else Log.d("retrofit", rent.imageIdsBefore.size.toString())
 
         btCloseRent.setOnClickListener {

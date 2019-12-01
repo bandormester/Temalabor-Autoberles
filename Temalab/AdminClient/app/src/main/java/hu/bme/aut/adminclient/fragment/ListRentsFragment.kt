@@ -28,7 +28,7 @@ class ListRentsFragment : Fragment(), RentAdapter.RentItemClickListener{
     private lateinit var retroListRents : RetroListRents
     private lateinit var rentAdapter: RentAdapter
     private lateinit var header: String
-    private  var activeList: Boolean = false
+    private var activeList: Boolean = false
     private var menu : Menu? = null
 
     lateinit var username : String
@@ -104,6 +104,10 @@ class ListRentsFragment : Fragment(), RentAdapter.RentItemClickListener{
 
         rentAdapter = RentAdapter()
         RecyclerViewRents.adapter = rentAdapter
+        Log.d("retrofit",activeList.toString())
+
+        activeList = false
+        menu?.findItem(R.id.miSwitchRent)?.setTitle("Active")
 
         val gson = GsonBuilder().setLenient().create()
         val builder : Retrofit.Builder = Retrofit.Builder()
