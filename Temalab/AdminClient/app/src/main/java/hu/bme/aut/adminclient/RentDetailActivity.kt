@@ -48,9 +48,10 @@ class RentDetailActivity : AppCompatActivity() {
         if(rent.imageIdsAfter.size!=0){
             currentAfter = 0
             val pictureUrl =
-                "http://ec2-3-14-28-216.us-east-2.compute.amazonaws.com/images/"+rent.imageIdsAfter[0].toString()
+                "http://ec2-3-14-28-216.us-east-2.compute.amazonaws.com/image/"+rent.imageIdsAfter[0].toString()
             val glideUrl = GlideUrl(pictureUrl, LazyHeaders.Builder().addHeader("Authorization",header).build())
 
+            Log.d("retorfit",pictureUrl)
             val option = RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE)
 
             Glide.with(this)
@@ -64,7 +65,7 @@ class RentDetailActivity : AppCompatActivity() {
                     if(currentAfter == rent.imageIdsAfter.size) currentAfter = 0
 
                     val pictureUrlAfter =
-                        "http://ec2-3-14-28-216.us-east-2.compute.amazonaws.com/images/"+rent.imageIdsAfter[currentAfter].toString()
+                        "http://ec2-3-14-28-216.us-east-2.compute.amazonaws.com/image/"+rent.imageIdsAfter[currentAfter].toString()
                     val glideUrlAfter = GlideUrl(pictureUrlAfter, LazyHeaders.Builder().addHeader("Authorization",header).build())
 
 
@@ -81,11 +82,11 @@ class RentDetailActivity : AppCompatActivity() {
         if(rent.imageIdsBefore.size!=0){
             currentBefore=0
             val pictureUrl =
-                "http://ec2-3-14-28-216.us-east-2.compute.amazonaws.com/images/"+rent.imageIdsBefore[0].toString()
+                "http://ec2-3-14-28-216.us-east-2.compute.amazonaws.com/image/"+rent.imageIdsBefore[0].toString()
             val glideUrl = GlideUrl(pictureUrl, LazyHeaders.Builder().addHeader("Authorization",header).build())
 
             val option = RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE)
-
+            Log.d("retorfit",pictureUrl)
             Glide.with(this)
                 .load(glideUrl)
                 .apply(option)
@@ -97,7 +98,7 @@ class RentDetailActivity : AppCompatActivity() {
                     if(currentBefore == rent.imageIdsBefore.size) currentBefore = 0
 
                     val pictureUrlBefore =
-                        "http://ec2-3-14-28-216.us-east-2.compute.amazonaws.com/images/"+rent.imageIdsBefore[currentBefore].toString()
+                        "http://ec2-3-14-28-216.us-east-2.compute.amazonaws.com/image/"+rent.imageIdsBefore[currentBefore].toString()
                     val glideUrlBefore = GlideUrl(pictureUrlBefore, LazyHeaders.Builder().addHeader("Authorization",header).build())
 
 
