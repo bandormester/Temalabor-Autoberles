@@ -41,8 +41,10 @@ class RentAdapter : RecyclerView.Adapter<RentAdapter.RentHolder>(){
         holder.tvRentPlannedStart.text = rent.plannedStartTime
         holder.tvRentActualEnd.text = rent.actualEndTime
         holder.tvRentPlannedEnd.text = rent.plannedEndTime
-        holder.tvStartStation.append(rent.startStationId.toString())
-        holder.tvEndStation.append(rent.endStationId.toString())
+        holder.tvStartStation.text = rent.startStationName
+        holder.tvEndStation.text = rent.endStationName
+        val carModel = rent.carBrand +" "+rent.carModel
+        holder.tvCarModel.text = carModel
         if(position%2==0)holder.rentRowBg.setBackgroundColor(Color.rgb(240,240,240))
     }
 
@@ -64,8 +66,9 @@ class RentAdapter : RecyclerView.Adapter<RentAdapter.RentHolder>(){
         val tvRentPlannedStart: TextView = rentView.tvRentPlannedStart
         val tvRentActualEnd: TextView = rentView.tvRentActualEnd
         val tvRentPlannedEnd: TextView = rentView.tvRentPlannedEnd
-        val tvStartStation: TextView = rentView.tvRentStartStation
-        val tvEndStation: TextView = rentView.tvRendEndStation
+        val tvStartStation: TextView = rentView.tvRentStartStationName
+        val tvEndStation: TextView = rentView.tvRentEndStationName
+        val tvCarModel: TextView = rentView.tvRentCarModelName
         val rentRowBg: ConstraintLayout = rentView.layoutRentRow
 
         var rent : Rent? = null

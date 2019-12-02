@@ -14,7 +14,13 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.gson.GsonBuilder
 import hu.bme.aut.adminclient.model.Rent
 import hu.bme.aut.adminclient.retrofit.RetroListRents
+import kotlinx.android.synthetic.main.activity_active_rent_detail.*
 import kotlinx.android.synthetic.main.activity_rent_detail.*
+import kotlinx.android.synthetic.main.activity_rent_detail.btCloseRent
+import kotlinx.android.synthetic.main.activity_rent_detail.tvRentActualEnd
+import kotlinx.android.synthetic.main.activity_rent_detail.tvRentActualStart
+import kotlinx.android.synthetic.main.activity_rent_detail.tvRentPlannedEnd
+import kotlinx.android.synthetic.main.activity_rent_detail.tvRentPlannedStart
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,18 +38,23 @@ class RentDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rent_detail)
 
+
         val username = intent.getStringExtra("username")
         val password = intent.getStringExtra("password")
         val loginDetails = "$username:$password"
         header  = "Basic " + Base64.encodeToString(loginDetails.toByteArray(), Base64.NO_WRAP)
 
         val rent = intent.getSerializableExtra("rent") as Rent
+
+        title = "Unclosed rent: "+rent.rentId
         tvRentActualStart.text = rent.actualStartTime
         tvRentPlannedStart.text = rent.plannedStartTime
         tvRentActualEnd.text = rent.actualEndTime
         tvRentPlannedEnd.text = rent.plannedEndTime
-        tvRentStartStation.append(rent.startStationId.toString())
-        tvRendEndStation.append(rent.endStationId.toString())
+        tvRentStartStationNames.text = rent.startStationName
+        tvRentEndStationNames.text = rent.endStationName
+        val carModel = rent.carModel+" "+rent.carBrand
+        tvRentCarModels.text = carModel
 
         if(rent.imageIdsAfter.size!=0){
             currentAfter = 0

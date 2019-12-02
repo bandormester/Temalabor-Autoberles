@@ -19,7 +19,14 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.gson.GsonBuilder
 import hu.bme.aut.adminclient.model.Rent
 import hu.bme.aut.adminclient.retrofit.RetroListRents
+import kotlinx.android.synthetic.main.activity_active_rent_detail.*
 import kotlinx.android.synthetic.main.activity_rent_detail.*
+import kotlinx.android.synthetic.main.activity_rent_detail.btCloseRent
+import kotlinx.android.synthetic.main.activity_rent_detail.tvRendEndStation
+import kotlinx.android.synthetic.main.activity_rent_detail.tvRentActualEnd
+import kotlinx.android.synthetic.main.activity_rent_detail.tvRentActualStart
+import kotlinx.android.synthetic.main.activity_rent_detail.tvRentPlannedEnd
+import kotlinx.android.synthetic.main.activity_rent_detail.tvRentPlannedStart
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -36,8 +43,9 @@ class ActiveRentDetailActivity : AppCompatActivity(), OnMapReadyCallback {
 
         for(r in rent.positions){
             val m = LatLng(r.latitude,r.longitude)
+            val zoom = 16.0f
             mMap.addMarker(MarkerOptions().position(m).title(r.reportedTime))
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(m))
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(m,zoom))
         }
     }
 
@@ -47,6 +55,8 @@ class ActiveRentDetailActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_active_rent_detail)
         rent = intent.getSerializableExtra("rent") as Rent
+        title = "Active rent: "+rent.rentId
+
 
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.mvRentMap) as SupportMapFragment
@@ -63,8 +73,10 @@ class ActiveRentDetailActivity : AppCompatActivity(), OnMapReadyCallback {
         tvRentPlannedStart.text = rent.plannedStartTime
         tvRentActualEnd.text = rent.actualEndTime
         tvRentPlannedEnd.text = rent.plannedEndTime
-        tvRentStartStation.append(rent.startStationId.toString())
-        tvRendEndStation.append(rent.endStationId.toString())
+        tvRentStartStationName.text = rent.startStationName
+        tvRentEndStationName.text = rent.endStationName
+        val carModel = rent.carModel+" "+rent.carBrand
+        tvRentCarModel.text = carModel
 
 
         btCloseRent.setOnClickListener {//TODO

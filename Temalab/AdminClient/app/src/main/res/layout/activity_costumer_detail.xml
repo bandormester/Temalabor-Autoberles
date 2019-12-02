@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,122 +7,186 @@
     tools:context=".CostumerDetailActivity"
     android:orientation="vertical">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
 
         <ImageView
             android:scaleType="centerInside"
             android:id="@+id/ivProfilePic"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:contentDescription="Profilepic"
             android:src="@mipmap/ic_launcher"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin="24dp"/>
         <TextView
             android:id="@+id/tvFirstName"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/ivProfilePic"
-            android:layout_toRightOf="@id/ivProfilePic"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="40dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginBottom="30dp" />
+            app:layout_constraintStart_toEndOf="@id/ivProfilePic"
+            app:layout_constraintTop_toTopOf="@id/ivProfilePic"
+            app:layout_constraintBottom_toTopOf="@id/tvLastName"
+            app:layout_constraintEnd_toEndOf="parent"/>
         <TextView
             android:id="@+id/tvLastName"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvFirstName"
-            android:layout_toRightOf="@id/ivProfilePic"
-            android:layout_toEndOf="@id/ivProfilePic"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp" />
+            app:layout_constraintStart_toEndOf="@id/ivProfilePic"
+            app:layout_constraintBottom_toBottomOf="@id/ivProfilePic"
+            app:layout_constraintTop_toBottomOf="@id/tvFirstName"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
-        <TextView
+    <TextView
+        android:id="@+id/phoneText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/phone"
+        android:textStyle="bold"
+        android:layout_marginLeft="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivProfilePic"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="24dp"/>
+    <TextView
             android:id="@+id/tvPhone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/ivProfilePic"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginBottom="10dp"/>
-        <TextView
-            android:id="@+id/tvEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tvPhone"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginBottom="10dp"/>
-        <TextView
-            android:id="@+id/tvLicenceCard"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tvEmail"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginBottom="10dp"/>
-        <TextView
-            android:id="@+id/tvExpirationDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tvLicenceCard"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginBottom="10dp"/>
-        <TextView
-            android:id="@+id/tvEnable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/enable"
-            android:layout_below="@id/tvExpirationDate"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp" />
-        <CheckBox
-            android:id="@+id/cbApproved"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tvExpirationDate"
-            android:layout_toEndOf="@id/tvEnable"
-            android:layout_toRightOf="@id/tvEnable"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-             />
-        <ImageView
-            android:scaleType="centerInside"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="20dp"
-            android:id="@+id/ivLicenceFront"
-            android:layout_width="200dp"
-            android:layout_height="100dp"
-            android:layout_below="@id/tvEnable"
-            android:contentDescription="Licence Front"
-            android:layout_marginLeft="20dp" />
-        <ImageView
-            android:scaleType="centerInside"
-            android:id="@+id/ivLicenceBack"
-            android:layout_width="200dp"
-            android:layout_height="100dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_below="@id/ivLicenceFront"
-            android:contentDescription="Licence Back"
-            android:layout_marginLeft="20dp" />
-    </RelativeLayout>
-    </ScrollView>
+            app:layout_constraintBottom_toBottomOf="@id/phoneText"
+            app:layout_constraintStart_toEndOf="@id/phoneText"
+        android:layout_marginLeft="12dp"
+
+        android:layout_marginStart="12dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="12dp"
+        android:text="@string/email"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phoneText" />
+
+    <TextView
+        android:id="@+id/tvEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvPhone"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintStart_toEndOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="12dp"
+        android:text="@string/licence_card"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/tvLicenceCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView2"
+        app:layout_constraintStart_toEndOf="@+id/textView2" />
 
 
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="12dp"
+        android:text="@string/expiration_date"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/tvExpirationDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView3"
+        app:layout_constraintStart_toEndOf="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/tvEnable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/enable"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <CheckBox
+        android:id="@+id/cbApproved"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvEnable"
+        app:layout_constraintStart_toEndOf="@+id/tvEnable"
+        app:layout_constraintTop_toTopOf="@+id/tvEnable" />
+
+    <ImageView
+        android:id="@+id/ivLicenceFront"
+        android:layout_height="120dp"
+        android:layout_width="0dp"
+        android:layout_marginTop="36dp"
+        android:scaleType="centerInside"
+        app:layout_constraintEnd_toStartOf="@+id/ivLicenceBack"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvEnable" />
+
+    <ImageView
+        android:id="@+id/ivLicenceBack"
+        android:layout_height="120dp"
+        android:layout_width="0dp"
+        android:scaleType="centerInside"
+        app:layout_constraintStart_toEndOf="@id/ivLicenceFront"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ivLicenceFront"
+        />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:textStyle="bold"
+        android:text="@string/licence_card_front"
+        app:layout_constraintEnd_toEndOf="@+id/ivLicenceFront"
+        app:layout_constraintStart_toStartOf="@+id/ivLicenceFront"
+        app:layout_constraintTop_toBottomOf="@+id/ivLicenceFront" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="@string/licence_card_back"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/ivLicenceBack"
+        app:layout_constraintStart_toStartOf="@+id/ivLicenceBack"
+        app:layout_constraintTop_toBottomOf="@+id/ivLicenceBack" />
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

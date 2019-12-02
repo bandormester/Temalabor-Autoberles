@@ -38,8 +38,10 @@ class CarDetailActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
         mMap = p0
 
         val sy = LatLng(detailedCar.station!!.latitude,detailedCar.station!!.longitude)
+        val zoom = 16.0f
         mMap.addMarker(MarkerOptions().position(sy).title(detailedCar.station!!.name))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sy))
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sy,zoom))
+
     }
 
 

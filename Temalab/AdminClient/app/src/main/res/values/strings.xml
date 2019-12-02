@@ -27,4 +27,18 @@
     <string name="title_rents">Rents</string>
     <string name="close_rent">Close rent</string>
     <string name="title_activity_maps">Maps</string>
+    <string name="phone">Phone:</string>
+    <string name="email">Email:</string>
+    <string name="licence_card">Licence Card:</string>
+    <string name="expiration_date">Expiration date:</string>
+    <string name="licence_card_back">Licence card back</string>
+    <string name="licence_card_front">Licence card front</string>
+    <string name="start">Start</string>
+    <string name="end">End</string>
+    <string name="end_station">End station</string>
+    <string name="start_station">Start station</string>
+    <string name="planned">Planned</string>
+    <string name="actual">Actual</string>
+    <string name="actual_start_end">Actual Start/End</string>
+    <string name="planned_start_end">Planned Start/End</string>
 </resources>

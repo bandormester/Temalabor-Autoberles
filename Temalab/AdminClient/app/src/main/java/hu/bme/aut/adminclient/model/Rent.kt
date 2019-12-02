@@ -5,6 +5,8 @@ import java.io.Serializable
 class Rent : Serializable{
     var rentId : Int = 0
     var carId : Int = 0
+    var carBrand : String = ""
+    var carModel : String = ""
     var plannedStartTime : String = ""
     var plannedEndTime : String = ""
     var startStationId : Int = 0
